@@ -18,7 +18,7 @@ function Footer(props) {
             <div className="row gy-5">
               <div className="col-lg-3 col-md-6">
                 <div className="footer-item">
-                  <Link tio={`${process.env.PUBLIC_URL}/`} onclick={scrollTop}><img alt="images" src={process.env.PUBLIC_URL + "/images/bg/footer-logo.png"} /></Link>
+                  <Link tio={`${process.env.PUBLIC_URL}/`} onClick={scrollTop}><img alt="images" src={process.env.PUBLIC_URL + "/images/bg/footer-logo.png"} /></Link>
                   <p>Lorem ipsum dolor sit amet consecte tur adipisicing elit, sed do eiusmod tempor
                     incididunt ut labore.</p>
                   <form>

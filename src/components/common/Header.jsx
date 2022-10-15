@@ -338,11 +338,20 @@ function Header() {
           <div className="search-btn" onClick={searchFullScreen}>
             <i className="bi bi-search" />
           </div>
+          { auth?.Name ?
           <div className="eg-btn btn--primary header-btn">
-            <Link to={`${process.env.PUBLIC_URL}/login`} onClick={scrollTop}>
+           <Link to={`/${auth.Role}/dashboard`} replace onClick={scrollTop}>
               {auth.Name}'s Account
-            </Link>
-          </div>
+            </Link> 
+          </div> :
+          
+          <div className="eg-btn btn--primary header-btn">
+          <Link to={`${process.env.PUBLIC_URL}/login`} onClick={scrollTop}>
+             {auth.Name}Login In
+           </Link> 
+         </div>
+          
+          }
           <div
             className="mobile-menu-btn d-lg-none d-block"
             onClick={handleSidbarMenu}

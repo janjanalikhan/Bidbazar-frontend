@@ -1,5 +1,6 @@
 import React from "react";
 import ContentOfDashboardTab from "./ContentOfDashboardTab";
+import AddProducts from "./AddProducts";
 import ContentOfOrder from "./ContentOfOrder";
 import ContentOfProfile from "./ContentOfProfile";
 import ContentOfpurchase from "./ContentOfpurchase";
@@ -25,6 +26,7 @@ function DashbordWrap() {
             <div className="col-lg-9">
               <div className="tab-content" id="v-pills-tabContent">
                 <ContentOfDashboardTab />
+                <AddProducts />
                 <ContentOfProfile />
                 <ContentOfOrder />
                 <ContentOfpurchase />
