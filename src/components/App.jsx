@@ -3,12 +3,12 @@ import Footer from './common/Footer'
 import Header from './common/Header'
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-function Layout({children}) {
+function Layout(props) {
   return (
     <>
      <Header/> 
      <ReactNotifications />
-     {children}
+     {<props.page/>}
      <Footer/>  
     </>
   )

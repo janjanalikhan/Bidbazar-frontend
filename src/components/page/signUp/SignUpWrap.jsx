@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+
 import { useFormik } from "formik";
 import { Store } from "react-notifications-component";
 import axios from "axios";
-import Swal from 'sweetalert2'
-import { useNavigate, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 function SignUpWrap() {
-
-
   const navigate = useNavigate();
+  const [refresh, setRefresh] = useState(false)
 
   const showNotification = () => {
     Store.addNotification({
@@ -27,13 +27,13 @@ function SignUpWrap() {
     });
 
     Swal.fire({
-      title: 'Thanks for signing up!',
-      text: 'Now you can sign up',
-      icon: 'success',
-      confirmButtonText: 'Sign In'
-    })
-    navigate("/dashboard", { replace: true });
+      title: "Thanks for signing up!",
+      text: "Now you can login",
+      icon: "success",
+      confirmButtonText: "Sign In",
+    });
 
+    navigate("/login", { replace: true });
   };
   const [openEye, setOpenEye] = useState();
   const handleEyeIcon = () => {
@@ -45,8 +45,7 @@ function SignUpWrap() {
   };
 
   const addToDatabase = async (val) => {
-    showNotification()
-    console.log("ADD Teacher!!!!" + val);
+    console.log("addToDatabase Fun" + val);
 
     // const PhoneNumber = val.phonenumber;
     // const Gender = val.gender;
@@ -56,7 +55,7 @@ function SignUpWrap() {
     // const ProfilePicture = getFileBase64String;
 
     try {
-      await axios.post("http://localhost:3500/admin/teacher", {
+      await axios.post("http://localhost:3500/signup", {
         Name: val.name,
         Email: val.email,
         Password: val.password,
@@ -64,15 +63,18 @@ function SignUpWrap() {
         Addres: val.address,
         Country: val.country,
         Role: val.role,
-
       });
-
-
+      showNotification();
+      setRefresh(!refresh)
     } catch (e) {
-      
+      console.log(e);
+
+      if (e.response.status == "409")
+        Swal.fire("Email already exists", "Please try again", "error");
+      else Swal.fire(e.code, "Please try again", "error");
     }
 
-    // reload();
+    
   };
 
   function isEmail(val) {
@@ -87,7 +89,6 @@ function SignUpWrap() {
     return /^.{4,15}$/.test(val);
   }
 
-
   const validate = (values) => {
     const errors = {};
     if (!values.name) {
@@ -97,33 +98,31 @@ function SignUpWrap() {
     }
 
     if (!isPhoneNumber(values.phonenumber)) {
-      errors.phonenumber = 'Phone Number not valid';
-
+      errors.phonenumber = "Phone Number not valid";
     }
 
     if (!isEmail(values.email)) {
-      errors.email = 'Email not valid';
-
+      errors.email = "Email not valid";
     }
     if (!values.password) {
-      errors.password = 'Required';
+      errors.password = "Required";
     }
 
     if (!values.address) {
-      errors.address = 'Required';
+      errors.address = "Required";
     }
 
     if (!values.country) {
-      errors.country = 'Required';
+      errors.country = "Required";
     }
 
     if (!values.role) {
-      errors.role = 'Required';
+      errors.role = "Required";
     }
     if (!values.agree) {
-      errors.agree = 'Required';
+      errors.agree = "Required";
     }
-    
+
     // else if (values.designation.length > 15) {
     //   errors.designation = 'Must be 15 characters or less';
     // }
@@ -131,10 +130,6 @@ function SignUpWrap() {
     // if (!values.gender) {
     //   errors.gender = 'Required';
     // }
-
-
-
-
 
     // if (!isPassword(values.password)) {
     //   errors.password = 'Password not valid. Must have 4-15 characters';
@@ -211,7 +206,8 @@ function SignUpWrap() {
                           value={formik.values.name}
                           placeholder="Full Name"
                         />
-                        {formik.errors.name==null && formik.values.name!=""? (
+                        {formik.errors.name == null &&
+                        formik.values.name != "" ? (
                           <span className="text-green-600 text-xs">
                             Looks good!
                           </span>
@@ -234,7 +230,8 @@ function SignUpWrap() {
                           type="tel"
                           placeholder="Phone Number"
                         />
-                        {formik.errors.phonenumber==null  && formik.values.phonenumber!="" ? (
+                        {formik.errors.phonenumber == null &&
+                        formik.values.phonenumber != "" ? (
                           <span className="text-green-600 text-xs">
                             Looks good!
                           </span>
@@ -256,7 +253,8 @@ function SignUpWrap() {
                           type="email"
                           placeholder="Email"
                         />
-                        {formik.errors.email==null  &&formik.values.email!="" ? (
+                        {formik.errors.email == null &&
+                        formik.values.email != "" ? (
                           <span className="text-green-600 text-xs">
                             Looks good!
                           </span>
@@ -280,7 +278,8 @@ function SignUpWrap() {
                           id="password"
                           placeholder="Create A Password"
                         />
-                        {formik.errors.password==null  && formik.values.password!=""? (
+                        {formik.errors.password == null &&
+                        formik.values.password != "" ? (
                           <span className="text-green-600 text-xs">
                             Looks good!
                           </span>
@@ -311,7 +310,8 @@ function SignUpWrap() {
                           value={formik.values.address}
                           placeholder="Address"
                         />
-                        {formik.errors.address==null  && formik.values.address!="" ? (
+                        {formik.errors.address == null &&
+                        formik.values.address != "" ? (
                           <span className="text-green-600 text-xs">
                             Looks good!
                           </span>
@@ -332,7 +332,8 @@ function SignUpWrap() {
                           value={formik.values.country}
                           placeholder="Country"
                         />
-                        {formik.errors.country==null  && formik.values.country!="" ? (
+                        {formik.errors.country == null &&
+                        formik.values.country != "" ? (
                           <span className="text-green-600 text-xs">
                             Looks good!
                           </span>
@@ -353,16 +354,13 @@ function SignUpWrap() {
                         onChange={formik.handleChange}
                         value={formik.values.role}
                       >
-                        <option value="" selected disabled hidden>
-                          Select Seller or Buyer{" "}
-                        </option>
+                        <option defaultValue="">Select Seller or Buyer </option>
                         <option value="Seller">Seller</option>
                         <option value="Buyer">Buyer</option>
                       </select>
-                      {formik.errors.role==null  && formik.values.role!=""  ? (
-                        <span className="text-green-600 text-xs">
-                          Great!
-                        </span>
+                      {formik.errors.role == null &&
+                      formik.values.role != "" ? (
+                        <span className="text-green-600 text-xs">Great!</span>
                       ) : (
                         ""
                       )}
@@ -383,8 +381,7 @@ function SignUpWrap() {
                           <label htmlFor="agree">
                             I agree to the Terms &amp; Policy
                           </label>
-                        
-                       
+
                           <span className="text-red-600 ml-2 text-xs">
                             {formik.errors.agree}
                           </span>

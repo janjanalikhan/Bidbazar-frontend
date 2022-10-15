@@ -1,6 +1,8 @@
 import React from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { useLocation, Navigate, Outlet } from "react-router-dom";
 import Layout from "./components/App";
 import { createRoot } from "react-dom/client"; // For React 18
 import MainLayout from "./components/layout/MainLayout";
@@ -8,7 +10,7 @@ import Contact from "./components/page/contact/Contact";
 import ErrorPage from "./components/page/error/ErrorPage";
 import SignUp from "./components/page/signUp/SignUp";
 import Faq from "./components/page/faq/Faq";
-import "./index.css"
+import "./index.css";
 import Login from "./components/page/login/Login";
 import AuctionDetails from "./components/page/auctionDetails/AuctionDetails";
 import Dashboard from "./components/page/dashboard/Dashboard";
@@ -20,8 +22,11 @@ import About from "./components/page/about/About";
 import Layout2 from "./components/layout/Layout2";
 import Layout3 from "./components/layout/Layout3";
 import Merchant from "./components/page/joinMerchant/Merchant";
+import { ThemeContextProvider } from "./components/contexts/themeContext";
 
-
+import useAuth from "./components/hooks/useAuth";
+import LoginAuth from "./Auth/LoginAuth";
+import RequireAuth from "./Auth/RequireAuth";
 //Default Warniing Error Hide
 // console.log = console.warn = console.error = () => {};
 
@@ -32,13 +37,65 @@ import Merchant from "./components/page/joinMerchant/Merchant";
 @return HTML
 */
 
+const Root = () => {
+  const { auth } = useAuth();
+  // const auth = {Role: "Admin"}
 
+  const location = useLocation();
 
+  console.log("IM AT CON ROUTES: ", auth.Role);
 
-const  Root = () =>{
-  return <>
+  return (
+    <>
+      <Routes path="/">
+        <Route element={<LoginAuth />}>
+          <Route path="/" element={<MainLayout />} />
+        </Route>
 
-    <Routes>
+        <Route element={<LoginAuth />}>
+          <Route exact path={`/about`} element={<Layout page={About} />} />
+          <Route exact path={`/contact`} element={<Layout page={Contact} />} />
+          <Route exact path={`/blog`} element={<Layout page={Blog} />} />
+
+          <Route
+            exact
+            path={`/how-works`}
+            element={<Layout page={HowItWork} />}
+          />
+          <Route exact path={`/faq`} element={<Layout page={Faq} />} />
+          {/* <Route
+          exact
+          path={`/join-merchant`}
+          element={<Merchant/>}
+        /> */}
+
+          <Route path="/login" element={<Layout page={Login} />} />
+          <Route path="/signup" element={<Layout page={SignUp} />} />
+        </Route>
+
+        <Route element={<RequireAuth role="Seller" />}>
+          <Route
+            exact
+            path={`seller/dashboard`}
+            element={<Layout page={Dashboard} />}
+          />
+        </Route>
+
+        <Route element={<RequireAuth role="Buyer" />}>
+          <Route
+            exact
+            path={`buyer/dashboard`}
+            element={<Layout page={Dashboard} />}
+          />
+        </Route>
+
+        {/* <Route element={<RequireAuth role="Buyer" />}>
+          <Route path="/admin/*" element={<AdminRoutes />} />
+
+        </Route> */}
+
+        {/* 
+      
       <Route exact path="/" element={<MainLayout/>} />
       <Route exact path="/index2" element={<Layout2/>} />
       <Route exact path="/index3" element={<Layout3/>} />
@@ -93,33 +150,20 @@ const  Root = () =>{
           path={`${process.env.PUBLIC_URL}/live-auction`}
           element={<LiveAuction/>}
         />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/how-works`}
-          element={<HowItWork/>}
-        />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/faq`}
-          element={<Faq/>}
-        /> 
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/join-merchant`}
-          element={<Merchant/>}
-        /> 
-    
-    </Routes>
+    */}
 
-</>
-}
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </>
+  );
+};
 // export default Root;
 
 const children = (
   <BrowserRouter>
-
+    <ThemeContextProvider>
       <Root />
-
+    </ThemeContextProvider>
   </BrowserRouter>
 );
 
@@ -127,8 +171,6 @@ const container = document.getElementById("root");
 
 // ReactDOM.render(children, container); // For React 17
 createRoot(container).render(children); // For React 18
-
-
 
 // ReactDOM.render(
 //   <React.StrictMode>

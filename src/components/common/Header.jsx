@@ -1,10 +1,15 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import TopbarHeader from "./TopbarHeader";
+import useAuth from "../hooks/useAuth";
 
 function Header() {
+  const { auth, setAuth } = useAuth();
   const [search, setSearch] = useState(false);
   const [sidebar, setSidebar] = useState(false);
+
+
+
   // Sticky Menu Area
   useEffect(() => {
     window.addEventListener("scroll", isSticky);
@@ -335,7 +340,7 @@ function Header() {
           </div>
           <div className="eg-btn btn--primary header-btn">
             <Link to={`${process.env.PUBLIC_URL}/login`} onClick={scrollTop}>
-              My Account
+              {auth.Name}'s Account
             </Link>
           </div>
           <div
