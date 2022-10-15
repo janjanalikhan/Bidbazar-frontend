@@ -1,7 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/App";
+import { createRoot } from "react-dom/client"; // For React 18
 import MainLayout from "./components/layout/MainLayout";
 import Contact from "./components/page/contact/Contact";
 import ErrorPage from "./components/page/error/ErrorPage";
@@ -22,7 +23,7 @@ import Merchant from "./components/page/joinMerchant/Merchant";
 
 
 //Default Warniing Error Hide
-console.log = console.warn = console.error = () => {};
+// console.log = console.warn = console.error = () => {};
 
 /*
 =>version : 0.1
@@ -31,90 +32,107 @@ console.log = console.warn = console.error = () => {};
 @return HTML
 */
 
-function Root() {
+
+
+
+const  Root = () =>{
   return <>
-  <BrowserRouter basename="/">
-    <Switch>
-      <Route exact path="/" component={MainLayout} />
-      <Route exact path="/index2" component={Layout2} />
-      <Route exact path="/index3" component={Layout3} />
-      <Layout>
+
+    <Routes>
+      <Route exact path="/" element={<MainLayout/>} />
+      <Route exact path="/index2" element={<Layout2/>} />
+      <Route exact path="/index3" element={<Layout3/>} />
+    
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/about`}
-          component={About}
+          element={<About/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/contact`}
-          component={Contact}
+          element={<Contact/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/error`}
-          component={ErrorPage}
+          element={<ErrorPage/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/signup`}
-          component={SignUp}
+          element={<SignUp/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/login`}
-          component={Login}
+          element={<Login/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/auction-details`}
-          component={AuctionDetails}
+          element={<AuctionDetails/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/dashboard`}
-          component={Dashboard}
+          element={<Dashboard/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/blog`}
-          component={Blog}
+          element={<Blog/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/blog-details`}
-          component={BlogDetails}
+          element={<BlogDetails/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/live-auction`}
-          component={LiveAuction}
+          element={<LiveAuction/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/how-works`}
-          component={HowItWork}
+          element={<HowItWork/>}
         />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/faq`}
-          component={Faq}
+          element={<Faq/>}
         /> 
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/join-merchant`}
-          component={Merchant}
+          element={<Merchant/>}
         /> 
-      </Layout> 
-    </Switch>
-  </BrowserRouter>
+    
+    </Routes>
+
 </>
 }
+// export default Root;
 
-export default Root;
+const children = (
+  <BrowserRouter>
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>,
-  document.getElementById("root")
+      <Root />
+
+  </BrowserRouter>
 );
+
+const container = document.getElementById("root");
+
+// ReactDOM.render(children, container); // For React 17
+createRoot(container).render(children); // For React 18
+
+
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <Root />
+//   </React.StrictMode>,
+//   document.getElementById("root")
+// );
