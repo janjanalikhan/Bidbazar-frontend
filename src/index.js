@@ -14,6 +14,8 @@ import "./index.css";
 import Login from "./components/page/login/Login";
 import AuctionDetails from "./components/page/auctionDetails/AuctionDetails";
 import Dashboard from "./components/page/dashboard/Dashboard";
+import buyerDashboard from "./components/page/buyerDashboard/Dashboard";
+
 import Blog from "./components/page/blog/Blog";
 import BlogDetails from "./components/page/BlogDetails/BlogDetails";
 import LiveAuction from "./components/page/LiveAuction.jsx/LiveAuction";
@@ -85,8 +87,20 @@ const Root = () => {
           <Route
             exact
             path={`buyer/dashboard`}
-            element={<Layout page={Dashboard} />}
+            element={<Layout page={buyerDashboard} />}
           />
+
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/buyer/live-auction`}
+            element={<Layout page={LiveAuction} /> }
+          />
+
+<Route
+          exact
+          path={`${process.env.PUBLIC_URL}/buyer/auction-details/:id`}
+          element={<Layout page={AuctionDetails} />}
+        />
         </Route>
 
         {/* <Route element={<RequireAuth role="Buyer" />}>
@@ -145,11 +159,7 @@ const Root = () => {
           path={`${process.env.PUBLIC_URL}/blog-details`}
           element={<BlogDetails/>}
         />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/live-auction`}
-          element={<LiveAuction/>}
-        />
+       
     */}
 
         <Route path="*" element={<ErrorPage />} />

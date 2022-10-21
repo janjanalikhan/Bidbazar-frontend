@@ -9,7 +9,7 @@ function AuctionDetailsTab() {
         <div className="col-lg-8">
           <ul className="nav nav-pills d-flex flex-row justify-content-start gap-sm-4 gap-3 mb-45 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-tab" role="tablist">
             <li className="nav-item" role="presentation">
-              <button className="nav-link active details-tab-btn" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Description</button>
+              <button className="nav-link active details-tab-btn" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Bidding Policy </button>
             </li>
             <li className="nav-item" role="presentation">
               <button className="nav-link details-tab-btn" id="pills-bid-tab" data-bs-toggle="pill" data-bs-target="#pills-bid" type="button" role="tab" aria-controls="pills-bid" aria-selected="false">Biding History</button>
@@ -21,13 +21,23 @@ function AuctionDetailsTab() {
           <div className="tab-content" id="pills-tabContent">
             <div className="tab-pane fade show active wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
               <div className="describe-content">
-                <h4>How can have anything you ant in life if you ?</h4>
-                <p className="para">If you’ve been following the crypto space, you’ve likely heard of Non-Fungible Tokens (Biddings), more popularly referred to as ‘Crypto Collectibles.’ The world of Biddings is growing rapidly. It seems there is no slowing down of these assets as they continue to go up in price. This growth comes with the opportunity for people to start new businesses to create and capture value. The market is open for players in every kind of field. Are you a collector.</p>
-                <p className="para">But getting your own auction site up and running has always required learning complex coding langua ges, or hiring an expensive design firm for thousands of dollars and months of work.</p>
+                <h4>Read the policy carefully</h4>
+                <p className="para">
+
+                When bidding procedures are used, bids shall be advertised appropriately. Suppliers
+shall be invited to have their names placed on mailing lists to receive invitations to
+bid. When specifications are prepared, they will be mailed to all merchants and firms
+who have indicated an interest in bidding. All bids must be submitted in sealed envelopes, addressed to the Board, and plainly
+marked with the name of the bid and the time of the bid opening. Bids shall be
+opened at the time specified and all bidders and other persons shall be invited to be
+present.
+
+                </p>
+          
                 <ul className="describe-list">
-                  <li><Link to={"#"}>Amet consectetur adipisicing elit. Maxime reprehenderit quaerat, velit rem atque vel impedit!  Expensive Design.</Link></li>
-                  <li><Link to={"#"}>Consectetur adipisicing elit. Maxime reprehenderit quaerat</Link></li>
-                  <li><Link to={"#"}>Fuga magni veritatis ad temporibus atque adipisci nisi rerum...</Link></li>
+                  <li><Link to={"#"}>Whether your bid was successful or not, always request feedback to support continual improvement for the next bidding process</Link></li>
+                  <li><Link to={"#"}>Read the product description carefully</Link></li>
+                  <li><Link to={"#"}>Company will not be reesponsible for the product</Link></li>
                 </ul>
               </div>
             </div>

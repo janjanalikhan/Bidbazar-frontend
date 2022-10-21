@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import moment from "moment";
-function Counter(props) {
+
+function ClosedBtn(props) {
+  
   const [timerHours, setTimerHours] = useState("00");
   const [timerMinutes, setTimerMinutes] = useState("00");
   const [timerSecounds, setTimerSecounds] = useState("00");
@@ -8,6 +9,7 @@ function Counter(props) {
 
   const startTimer = () => {
     const countdownDate = new Date(props.date);
+    console.log("countdownDate", countdownDate);
 
     interval = setInterval(() => {
       const now = new Date();
@@ -38,18 +40,10 @@ function Counter(props) {
   });
   return (
     <>
-      {timerSecounds == 0 ? (
-        "Time Over"
-      ) : (
-        <>
-          {moment.duration(moment(props.date).diff(moment())).days() + 1}D:
-          <span id="hours1"> {timerHours}</span>H :&nbsp;
-          <span id="minutes1">{timerMinutes}</span>M :&nbsp;
-          <span id="seconds1">{timerSecounds}</span>S
-        </>
-      )}
-    </>
+    {timerSecounds==0?true: false
+      
+    }</>
   );
 }
 
-export default Counter;
+export default ClosedBtn;

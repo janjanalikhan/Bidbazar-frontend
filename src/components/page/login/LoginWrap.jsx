@@ -51,7 +51,7 @@ function LoginWrap() {
 
       console.log("decoded", decoded);
       setAuth(decoded);
-      console.log("SVED AUTH", auth);
+     
 
       showNotification(response);
       

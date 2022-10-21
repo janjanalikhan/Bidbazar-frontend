@@ -29,8 +29,6 @@ function DashbordWrap() {
                 <ContentOfDashboardTab />
                 <AddProducts />
                 <MyProducts/>
-
-
                 <ContentOfProfile />
                 <ContentOfOrder />
                 <ContentOfpurchase />

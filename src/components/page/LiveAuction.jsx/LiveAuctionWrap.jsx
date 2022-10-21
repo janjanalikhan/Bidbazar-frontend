@@ -1,88 +1,176 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Pagination from "../../common/Pagination";
 import LiveAuctionCard from "./LiveAuctionCard";
+import Select from "react-select";
+import Counter from "../../common/Counter";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import jwt_decode from "jwt-decode";
+
+import { AiOutlineEdit } from "react-icons/ai";
+import { MdOutlineDeleteOutline } from "react-icons/md";
+import { Table } from "@table-library/react-table-library/table";
+import moment from "moment";
+axios.defaults.withCredentials = true;
 
 function LiveAuctionWrap() {
+  const [allProducts, setallProducts] = useState(null);
+
+  const getAllProducts = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:3500/common/products",
+
+        {
+          withCredentials: true,
+        }
+      );
+      setallProducts(res);
+    } catch (e) {
+      Swal.fire(e.code, "Please try again", "error");
+    }
+
+    // reload();
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  console.log("allProducts", allProducts);
   return (
     <>
       <div className="live-auction-section pt-120 pb-120">
         <img
           alt="images"
           src={process.env.PUBLIC_URL + "/images/bg/section-bg.png"}
-          class="img-fluid section-bg-top"
+          className="img-fluid section-bg-top"
         />
-        <img
-          alt="images"
-          src={process.env.PUBLIC_URL + "/images/bg/section-bg.png"}
-          class="img-fluid section-bg-bottom"
-        />
+
         <div className="container">
           <div className="row gy-4 mb-60 d-flex justify-content-center">
-            <div className="col-lg-4 col-md-6 col-sm-10">
-              <LiveAuctionCard
-                image="/images/bg/live-auc1.png"
-                price="75.99"
-                title="Brand New royal Enfield 250 CC For Sale"
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-sm-10">
-              <LiveAuctionCard
-                image="/images/bg/live-auc2.png"
-                price="85.99"
-                title="Wedding Special Exclusive Cupple Ring (S2022)"
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-sm-10">
-              <LiveAuctionCard
-                image="/images/bg/live-auc3.png"
-                price="99.99"
-                title="Brand New Honda CBR 600 RR For Sale (2022)"
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-sm-10">
-              <LiveAuctionCard
-                image="/images/bg/live-auc4.png"
-                price="35.99"
-                title="Toyota AIGID A Class Hatchback Sale (2017 - 2021)"
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-sm-10">
-              <LiveAuctionCard
-                image="/images/bg/live-auc5.png"
-                price="45.99"
-                title="Havit HV-G61 USB Black Double Game Pad With Vibrat"
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-sm-10">
-              <LiveAuctionCard
-                image="/images/bg/live-auc6.png"
-                price="35.99"
-                title="IPhone 11 Pro Max All Variants Available For Sale"
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-sm-10">
-              <LiveAuctionCard
-                image="/images/bg/live-auc7.png"
-                price="41.99"
-                title="Blue ray filter All Variants Available For Sale"
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-sm-10">
-              <LiveAuctionCard
-                image="/images/bg/live-auc8.png"
-                price="333.99"
-                title="Pure leather All Variants Available For Sale"
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-sm-10">
-              <LiveAuctionCard
-                image="/images/bg/live-auc9.png"
-                price="83.99"
-                title="Water resist All Variants Available For Sale"
-              />
-            </div>
+            {allProducts == null
+              ? ""
+              : allProducts.data.map((product, index) => (
+                  <div key={index} className="col-lg-4 col-md-6 col-sm-10">
+                    <div
+                      data-wow-duration="1.5s"
+                      data-wow-delay="0.2s"
+                      className="eg-card auction-card1 wow fadeInDown"
+                    >
+                      <div className="auction-img">
+                        <img
+                          alt="images"
+                          src={product.Image}
+                          className='h-[250px] object-cover'
+                        />
+                        <div className="auction-timer">
+                          <div className="countdown" id="timer1">
+                            <div className="hidden hover:display">
+                          {  moment
+                          .duration(
+                            moment(product.BidClosingDate).diff(moment())
+                          )
+                          .days() + 1} Days
+                          </div>
+                            <h4>
+
+
+                            {
+                  Math.floor(((product.BidClosingDate-new Date()) % (1000 * 60)) / 1000)
+
+                           !=0
+                          ? <>
+                         
+                          
+                       <Counter date={product.BidClosingDate} />
+
+                          </>
+                          : "Time Over"}
+                              
+                            </h4>
+                          </div>
+                        </div>
+                        <div className="author-area">
+                          <div className="author-emo">
+                            <img
+                              alt="images"
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/images/icons/smile-emo.svg"
+                              }
+                            />
+                          </div>
+                          <div className="author-name">
+                            <span>Owner @{product.ProductOwner.Name}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="auction-content">
+                        <h4>
+                          <Link
+                            to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product._id}`}
+                            onClick={() =>
+                              window.scrollTo({ top: 0, behavior: "smooth" })
+                            }
+                          >
+                            {product.Name}
+                          </Link>
+                        </h4>
+                        <p>
+                          Bidding Price : <span>${product.InitialPrice}</span>
+                        </p>
+                        <div className="auction-card-bttm">
+                          <Link
+                            to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product._id}`}
+                            onClick={() =>
+                              window.scrollTo({ top: 0, behavior: "smooth" })
+                            }
+                            className="eg-btn btn--primary btn--sm"
+                          >
+                            Place a Bid
+                          </Link>
+                          <div className="share-area">
+                            <ul className="social-icons d-flex">
+                              <li>
+                                <Link to={"#"}>
+                                  <i className="bx bxl-facebook" />
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to={"#"}>
+                                  <i className="bx bxl-twitter" />
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to={"#"}>
+                                  <i className="bx bxl-pinterest" />
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to={"#"}>
+                                  <i className="bx bxl-instagram" />
+                                </Link>
+                              </li>
+                            </ul>
+                            <div>
+                              <Link to={"#"} className="share-btn">
+                                <i className="bx bxs-share-alt" />
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
+                
           </div>
-          <Pagination/>
+          <Pagination />
         </div>
       </div>
     </>
