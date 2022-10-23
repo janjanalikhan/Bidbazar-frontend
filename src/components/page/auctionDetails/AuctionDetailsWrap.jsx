@@ -478,13 +478,17 @@ function AuctionDetailsWrap() {
                                 <div className="row d-flex align-items-center">
                                   <div className="col-7">
                                     <div className="bidder-area">
-                                      <div className="bidder-img">
+                                      <div className="bidder-img ">
                                         <img
-                                          alt="images"
+                                          alt={'none'}
                                           src={
-                                            process.env.PUBLIC_URL +
-                                            "/images/bg/bidder1.png"
+                                            bid.Bidder.ProfilePicture
                                           }
+
+                                          style={{height:"55px" , borderRadius:"50%"}}
+                                          
+
+                                          
                                         />
                                       </div>
 
@@ -504,7 +508,11 @@ function AuctionDetailsWrap() {
                                 </div>
                               </li>
                             ))}
+
+                            
                       </ul>
+
+                      <br></br>
                     </div>
                   </div>
                   <div

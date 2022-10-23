@@ -44,6 +44,18 @@ function SignUpWrap() {
     }
   };
 
+  const [getFileBase64String, setFileBase64String] = useState("/images/blog/bid.gif");
+  const encodeFileBase64 = (file) => {
+    var reader = new FileReader();
+    console.log("\nfile", file);
+
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      var Base64 = reader.result;
+      console.log("Base64", Base64);
+      setFileBase64String(Base64);
+    };
+  }
   const addToDatabase = async (val) => {
     console.log("addToDatabase Fun" + val);
 
@@ -63,6 +75,7 @@ function SignUpWrap() {
         Addres: val.address,
         Country: val.country,
         Role: val.role,
+        ProfilePicture: getFileBase64String,
       });
       showNotification();
       setRefresh(!refresh)
@@ -123,6 +136,10 @@ function SignUpWrap() {
       errors.agree = "Required";
     }
 
+    if(getFileBase64String=="/images/blog/bid.gif"){
+      errors.file = "Required";
+    }
+
     // else if (values.designation.length > 15) {
     //   errors.designation = 'Must be 15 characters or less';
     // }
@@ -149,6 +166,8 @@ function SignUpWrap() {
       country: "",
       role: "",
       agree: "",
+      file:""
+     
     },
     // eslint-disable-next-line no-unused-vars
     validate,
@@ -346,7 +365,7 @@ function SignUpWrap() {
                       </div>
                     </div>
 
-                    <div className="col-md-12  ">
+                    <div className="col-md-6  ">
                       <label>Are you seller/buyer? *</label>
                       <select
                         id="role"
@@ -368,6 +387,33 @@ function SignUpWrap() {
                         {formik.errors.role}
                       </span>
                     </div>
+
+                    <div className="col-xl-6 col-lg-12 col-md-6">
+                  <div className="form-inner">
+                    <label>Choose image *</label>
+                    <input
+                      required
+                      type="file"
+                      id="file"
+                      onChange={(e) => {
+                        encodeFileBase64(e.target.files[0]);
+                      }}
+
+                     
+                   
+                    />
+                    {formik.errors.file == null && formik.values.file != "" ? (
+                      <span className="text-green-600 text-xs">
+                        Looks good!
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                    <span className="text-red-600 text-xs">
+                      {formik.errors.file}
+                    </span>
+                  </div>
+                </div>
 
                     <div className="col-md-12 mt-3">
                       <div className="form-agreement form-inner d-flex justify-content-between flex-wrap">

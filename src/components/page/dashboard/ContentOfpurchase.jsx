@@ -7,7 +7,7 @@ function ContentOfpurchase() {
      <div className="tab-pane fade" id="v-pills-purchase" role="tabpanel" aria-labelledby="v-pills-purchase-tab">
         {/* table title*/}
         <div className="table-title-area">
-          <h3>All Purchase</h3>
+          <h3>All Purchase (only frontend currently)  </h3>
           <select id="order-category">
             <option value={"01"}>Show: Last 05 Order</option>
             <option value={"02"}>Show: Last 03 Order</option>

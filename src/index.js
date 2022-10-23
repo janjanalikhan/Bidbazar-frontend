@@ -65,11 +65,7 @@ const Root = () => {
             element={<Layout page={HowItWork} />}
           />
           <Route exact path={`/faq`} element={<Layout page={Faq} />} />
-          {/* <Route
-          exact
-          path={`/join-merchant`}
-          element={<Merchant/>}
-        /> */}
+   
 
           <Route path="/login" element={<Layout page={Login} />} />
           <Route path="/signup" element={<Layout page={SignUp} />} />
@@ -81,6 +77,14 @@ const Root = () => {
             path={`seller/dashboard`}
             element={<Layout page={Dashboard} />}
           />
+
+          <Route exact path={`/about`} element={<Layout page={About} />} />
+          <Route exact path={`/contact`} element={<Layout page={Contact} />} />
+          <Route exact path={`/blog`} element={<Layout page={Blog} />} />
+          <Route exact path={`/how-works`} element={<Layout page={HowItWork} />} />
+          <Route exact path={`/faq`} element={<Layout page={Faq} />} />
+
+
         </Route>
 
         <Route element={<RequireAuth role="Buyer" />}>
@@ -90,17 +94,24 @@ const Root = () => {
             element={<Layout page={buyerDashboard} />}
           />
 
+
+          <Route exact path={`/about`} element={<Layout page={About} />} />
+          <Route exact path={`/contact`} element={<Layout page={Contact} />} />
+          <Route exact path={`/blog`} element={<Layout page={Blog} />} />
+          <Route exact path={`/how-works`} element={<Layout page={HowItWork} />} />
+          <Route exact path={`/faq`} element={<Layout page={Faq} />} />
+
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/buyer/live-auction`}
-            element={<Layout page={LiveAuction} /> }
+            element={<Layout page={LiveAuction} />}
           />
 
-<Route
-          exact
-          path={`${process.env.PUBLIC_URL}/buyer/auction-details/:id`}
-          element={<Layout page={AuctionDetails} />}
-        />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/buyer/auction-details/:id`}
+            element={<Layout page={AuctionDetails} />}
+          />
         </Route>
 
         {/* <Route element={<RequireAuth role="Buyer" />}>

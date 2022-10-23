@@ -99,9 +99,9 @@ function Header() {
       <header className="header-area style-1">
         <div className="header-logo">
           <Link to={`${process.env.PUBLIC_URL}/`} onClick={scrollTop}>
-            <img
+            <img style={{height: "50px" , width: "50px"}} 
               alt="logo"
-              src={process.env.PUBLIC_URL + "/images/bg/header-logo.png"}
+              src={process.env.PUBLIC_URL + "/images/bg/bidbazar.png"}
             />
           </Link>
         </div>
@@ -111,7 +111,8 @@ function Header() {
               <Link to={"/"}>
                 <img
                   alt="logo"
-                  src={process.env.PUBLIC_URL + "/images/bg/header-logo.png"}
+                 
+                  src={process.env.PUBLIC_URL + "/images/bg/bidbazar.png"}
                 />
               </Link>
             </div>
@@ -121,19 +122,20 @@ function Header() {
           </div>
           <ul className="menu-list">
             <li
-              className="menu-item-has-children"
+              //className="menu-item-has-children"
               onClick={() => dispatch({ type: "homeOne" })}
             >
               <Link
-                to={"#"}
+                to={`${process.env.PUBLIC_URL}/`} onClick={scrollTop}
                 className={`${
                   state.activeMenu === "homeOne" ? "active" : ""
                 } ${"drop-down"}`}
               >
                 Home
               </Link>
+              {/*
               <i className="bx bx-plus dropdown-icon" />
-              <ul
+               <ul
                 className={
                   state.activeMenu === "homeOne"
                     ? "submenu d-block"
@@ -161,7 +163,7 @@ function Header() {
                     Home 3
                   </Link>
                 </li>
-              </ul>
+              </ul> */}
             </li>
             <li onClick={() => dispatch({ type: "about" })}>
               <Link
@@ -181,7 +183,7 @@ function Header() {
                 How It Works
               </Link>
             </li>
-            <li onClick={() => dispatch({ type: "brows" })}>
+            {/* <li onClick={() => dispatch({ type: "brows" })}>
               <Link
                 to={`${process.env.PUBLIC_URL}/live-auction`}
                 onClick={scrollTop}
@@ -189,8 +191,8 @@ function Header() {
               >
                 Browse Product
               </Link>
-            </li>
-            <li
+            </li> */}
+            {/* <li
               className="menu-item-has-children"
               onClick={() => dispatch({ type: "news" })}
             >
@@ -227,8 +229,8 @@ function Header() {
                   </NavLink>
                 </li>
               </ul>
-            </li>
-            <li
+            </li> */}
+            {/* <li
               className="menu-item-has-children"
               onClick={() => dispatch({ type: "pages" })}
             >
@@ -297,7 +299,7 @@ function Header() {
                   </NavLink>
                 </li>
               </ul>
-            </li>
+            </li> */}
             <li onClick={() => dispatch({ type: "contact" })}>
               <Link
                 to={`${process.env.PUBLIC_URL}/contact`}
@@ -331,7 +333,7 @@ function Header() {
             <div className="hotline-info">
               <span>Click To Call</span>
               <h6>
-                <a href="tel:347-274-8816">+347-274-8816</a>
+                <a href="tel:347-274-8816">+92 302 2082996</a>
               </h6>
             </div>
           </div>

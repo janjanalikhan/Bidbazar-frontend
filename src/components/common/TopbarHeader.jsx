@@ -18,10 +18,13 @@ function TopbarHeader() {
     </ul>
   </div>
   <div className="email-area">
-    <h6>Email: <a href="mailto:contact@example.com">contact@example.com</a></h6>
+    <h6>Email: <a href="mailto:contact@example.com">Jan@BidBazar.com</a></h6>
   </div>
   <div className="topbar-right">
-    <ul className="topbar-right-list">
+    <div>
+      <span>Enjoy Bidding</span>
+    </div>
+    {/* <ul className="topbar-right-list">
       <li><img src={process.env.PUBLIC_URL + "/images/icons/flag-eng.png"} alt="images" /><span>Language</span>
         <ul className="topbar-sublist">
           <li><img src={process.env.PUBLIC_URL + "images/icons/flag-germeny.svg"} alt="images" /><span>Germeny</span></li>
@@ -36,7 +39,7 @@ function TopbarHeader() {
                         <li><Link to="#"><i className="bi bi-currency-pound"></i>Pound</Link></li>
                     </ul>
                 </li>
-    </ul>
+    </ul> */}
   </div>
 </div>
     </>

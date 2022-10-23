@@ -31,8 +31,8 @@ function DashbordWrap() {
                 <MyProducts/>
 
 
-                <ContentOfProfile />
-                <ContentOfOrder />
+                {/* <ContentOfProfile />
+                <ContentOfOrder /> */}
                 <ContentOfpurchase />
               </div>
             </div>

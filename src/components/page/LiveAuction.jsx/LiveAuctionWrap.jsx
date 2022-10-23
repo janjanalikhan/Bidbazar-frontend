@@ -98,10 +98,7 @@ function LiveAuctionWrap() {
                           <div className="author-emo">
                             <img
                               alt="images"
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/images/icons/smile-emo.svg"
-                              }
+                              src={product.ProductOwner.ProfilePicture}
                             />
                           </div>
                           <div className="author-name">

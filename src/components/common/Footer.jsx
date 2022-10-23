@@ -16,11 +16,10 @@ function Footer(props) {
         <div className="footer-top">
           <div className="container">
             <div className="row gy-5">
-              <div className="col-lg-3 col-md-6">
+              <div className="col-lg-4 col-md-6">
                 <div className="footer-item">
-                  <Link tio={`${process.env.PUBLIC_URL}/`} onClick={scrollTop}><img alt="images" src={process.env.PUBLIC_URL + "/images/bg/footer-logo.png"} /></Link>
-                  <p>Lorem ipsum dolor sit amet consecte tur adipisicing elit, sed do eiusmod tempor
-                    incididunt ut labore.</p>
+                  <Link tio={`${process.env.PUBLIC_URL}/`} onClick={scrollTop}><img alt="images" src={process.env.PUBLIC_URL + "/images/bg/bidbazar.png"} /></Link>
+                  <p>We provide best bidding facility in the world</p>
                   <form>
                     <div className="input-with-btn d-flex jusify-content-start align-items-strech">
                       <input type="text" placeholder="Enter your email" />
@@ -29,31 +28,31 @@ function Footer(props) {
                   </form>
                 </div>
               </div>
-              <div className="col-lg-3 col-md-6 d-flex justify-content-lg-center">
+              <div className="col-lg-4 col-md-6 d-flex justify-content-lg-center">
                 <div className="footer-item">
                   <h5>Navigation</h5>
                   <ul className="footer-list">
-                    <li><Link onClick={scrollTop} to={`${process.env.PUBLIC_URL}live-auction`}>All Product</Link></li>
+/
                     <li><Link onClick={scrollTop} to={`${process.env.PUBLIC_URL}how-works`}>How It Works</Link></li>
                     <li><Link onClick={scrollTop} to={`${process.env.PUBLIC_URL}/login`}>My Account</Link></li>
                     <li><Link onClick={scrollTop} to={`${process.env.PUBLIC_URL}/about`}>About Company</Link></li>
-                    <li><Link onClick={scrollTop} to={`${process.env.PUBLIC_URL}/blog`}>Our News Feed</Link></li>
+    
                   </ul>
                 </div>
               </div>
-              <div className="col-lg-3 col-md-6 d-flex justify-content-lg-center">
+              <div className="col-lg-4 col-md-6 d-flex justify-content-lg-center">
                 <div className="footer-item">
                   <h5>Help &amp; FAQs</h5>
                   <ul className="footer-list">
-                    <li><Link to={`${process.env.PUBLIC_URL}/product`} onClick={scrollTop}>Help Center</Link></li>
+       
                     <li><Link to={`${process.env.PUBLIC_URL}/faq`} onClick={scrollTop}>Customer FAQs</Link></li>
                     <li><Link to={`${process.env.PUBLIC_URL}/login`} onClick={scrollTop}>Terms and Conditions</Link></li>
                     <li><Link to={`${process.env.PUBLIC_URL}/about`} onClick={scrollTop}>Security Information</Link></li>
-                    <li><Link to={`${process.env.PUBLIC_URL}/blog`} onClick={scrollTop}>Merchant Add Policy</Link></li>
+     
                   </ul>
                 </div>
               </div>
-              <div className="col-lg-3 col-md-6">
+              {/* <div className="col-lg-3 col-md-6">
                 <div className="footer-item">
                   <h5>Latest Feed</h5>
                   <ul className="recent-feed-list">
@@ -89,7 +88,7 @@ function Footer(props) {
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -97,7 +96,7 @@ function Footer(props) {
           <div className="container">
             <div className="row d-flex align-items-center g-4">
               <div className="col-lg-6 d-flex justify-content-lg-start justify-content-center">
-                <p>Copyright 2022 <Link to={"#"}>Bid Out</Link> | Design By <a href="https://themeforest.net/category/site-templates?term=egenslab" className="egns-lab">Egens Lab</a></p>
+                <p>Copyright 2022 <Link to={"#"}>BidBazar</Link> | Design By Jan & Usman | Bahria University</p>
               </div>
               <div className="col-lg-6 d-flex justify-content-lg-end justify-content-center align-items-center flex-sm-nowrap flex-wrap">
                 <p className="d-sm-flex d-none">We Accepts:</p>
