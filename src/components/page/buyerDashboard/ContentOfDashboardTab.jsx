@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true;
 function ContentOfDashboardTab() {
 
 
-
+const {auth , setAuth} = useAuth();
 
   const [sellerInfo, setsellerInfo] = useState(null);
   const getsellerInfo = async () => {
@@ -26,6 +26,7 @@ function ContentOfDashboardTab() {
 
       setsellerInfo(res);
     } catch (e) {
+      
       Swal.fire(e.code, "Please try again", "error");
     }
 
@@ -63,11 +64,13 @@ return count
 
   return (
     <>
+
      <div className="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
         <div className="dashboard-area box--shadow">
           <div className="row g-4">
             <div className="col-md-6 col-sm-6">
               <div className="dashboard-card hover-border1 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s">
+                
                 <div className="header">
                   <h5>Total Products</h5>
                 </div>

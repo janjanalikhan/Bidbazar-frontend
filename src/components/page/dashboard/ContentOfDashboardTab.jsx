@@ -9,6 +9,9 @@ import DateTimePicker from 'react-datetime-picker'
 axios.defaults.withCredentials = true;
 
 function ContentOfDashboardTab() {
+  const {auth , setAuth} = useAuth();
+
+ 
 
 
 
@@ -63,6 +66,7 @@ return count
 
   return (
     <>
+
      <div className="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
         <div className="dashboard-area box--shadow">
           <div className="row g-4">
