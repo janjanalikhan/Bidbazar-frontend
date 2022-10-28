@@ -8,6 +8,11 @@ import DeshbordMenu from "./DashboardMenu";
 import MyProducts from "./MyProducts";
 
 function DashbordWrap() {
+
+
+
+
+
   return (
     <>
       <div className="dashboard-section pt-120 pb-120">
@@ -27,11 +32,12 @@ function DashbordWrap() {
             <div className="col-lg-9">
               <div className="tab-content" id="v-pills-tabContent">
                 <ContentOfDashboardTab />
-                <AddProducts />
                 <MyProducts/>
+                {/* <AddProducts />
+               
                 <ContentOfProfile />
                 <ContentOfOrder />
-                <ContentOfpurchase />
+                <ContentOfpurchase /> */}
               </div>
             </div>
           </div>

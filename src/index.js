@@ -14,6 +14,7 @@ import "./index.css";
 import Login from "./components/page/login/Login";
 import AuctionDetails from "./components/page/auctionDetails/AuctionDetails";
 import Dashboard from "./components/page/dashboard/Dashboard";
+import Bids from "./components/page/dashboard/Bids";
 import buyerDashboard from "./components/page/buyerDashboard/Dashboard";
 
 import Blog from "./components/page/blog/Blog";
@@ -77,6 +78,15 @@ const Root = () => {
             path={`seller/dashboard`}
             element={<Layout page={Dashboard} />}
           />
+          <Route
+            exact
+            path={`seller/bids/:id`}
+          
+            element={<Layout page={Bids} />}
+            Bids
+          >
+
+          </Route>
 
           <Route exact path={`/about`} element={<Layout page={About} />} />
           <Route exact path={`/contact`} element={<Layout page={Contact} />} />

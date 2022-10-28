@@ -173,6 +173,8 @@ function AuctionDetailsWrap() {
     },
   });
 
+  const [index, setIndex] = useState(0);
+
   return (
     <>
       {productInfo == null ? (
@@ -193,23 +195,7 @@ function AuctionDetailsWrap() {
           <div className="container">
             <div className="row g-4 mb-50">
               <div className="col-xl-5 col-lg-7 d-flex flex-row  align-items-start   justify-content-center flex-md-nowrap flex-wrap gap-4">
-                {/* <ul className="nav small-image-list d-flex flex-md-column flex-row justify-content-center gap-4  wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".4s">
-            <li className="nav-item">
-              <div id="details-img1" data-bs-toggle="pill" data-bs-target="#gallery-img1" aria-controls="gallery-img1">
-                <img alt="images" src={process.env.PUBLIC_URL + "/images/bg/prod-gallery1.png"} className="img-fluid" />
-              </div>
-            </li>
-            <li className="nav-item">
-              <div id="details-img2" data-bs-toggle="pill" data-bs-target="#gallery-img2" aria-controls="gallery-img2">
-                <img alt="images" src={process.env.PUBLIC_URL + "/images/bg/prod-gallery2.png"} className="img-fluid" />
-              </div>
-            </li>
-            <li className="nav-item">
-              <div id="details-img3" data-bs-toggle="pill" data-bs-target="#gallery-img3" aria-controls="gallery-img3">
-                <img alt="images" src={process.env.PUBLIC_URL + "/images/bg/prod-gallery3.png"} className="img-fluid" />
-              </div>
-            </li>
-          </ul> */}
+               
                 <div
                   className="tab-content  mb-4 d-flex justify-content-lg-start justify-content-center    wow fadeInUp"
                   data-wow-duration="1.5s"
@@ -221,22 +207,24 @@ function AuctionDetailsWrap() {
                   >
                     <div className="auction-gallery-timer  d-flex align-items-center justify-content-center  flex-wrap">
                       <h3 id="countdown-timer-1 ">
-                        {Math.floor(
+                        {
+                          productInfo.IsSold?"Sold":
+                        
+                        Math.floor(
                           ((productInfo.BidClosingDate - new Date()) %
                             (1000 * 60)) /
                             1000
                         ) != 0 ? (
                           <>
-                          {moment
-                            .duration(
-                              moment(productInfo.BidClosingDate).diff(moment())
-                              )
-                              .days() + 1}D :{" "}
+                         
                           <Counter date={productInfo.BidClosingDate} />
                               </>
                         ) : (
                           "Time Over"
-                        )}
+                        )
+                        
+                        
+                        }
                       </h3>
                     </div>
                     <img
@@ -246,19 +234,7 @@ function AuctionDetailsWrap() {
                     />
                   </div>
 
-                  {/* 
-            <div className="tab-pane big-image fade" id="gallery-img2">
-              <div className="auction-gallery-timer d-flex align-items-center justify-content-center">
-                <h3 id="countdown-timer-2"><Counter/></h3>
-              </div>
-              <img alt="images" src={process.env.PUBLIC_URL + "/images/bg/prod-gallery2.png"} className="img-fluid" />
-            </div>
-            <div className="tab-pane big-image fade" id="gallery-img3">
-              <div className="auction-gallery-timer d-flex align-items-center justify-content-center">
-                <h3 id="countdown-timer-3"><Counter/></h3>
-              </div>
-              <img alt="images" src={process.env.PUBLIC_URL + "/images/bg/prod-gallery3.png"} className="img-fluid" />
-            </div> */}
+                  
                 </div>
               </div>
               <div className="col-xl-6 col-lg-5">
@@ -288,28 +264,7 @@ function AuctionDetailsWrap() {
                       </div>
                     </div>
 
-                    {/* {
-                  Math.floor(((productInfo.BidClosingDate-new Date()) % (1000 * 60)) / 1000)
-                  !=0
-
                   
-                          ?
-                          
-                          <form>
-                          <div className="form-inner gap-2">
-                            <input type="text" placeholder="$00.00" />
-                            <button className="eg-btn btn--primary btn--sm bg-black" onSubmit={(e)=>e.preventDefault()} type="submit">Place Bid</button>
-                          </div>
-                        </form>
-                          
-                          :
-                          
-                          <div className="form-inner gap-2">
-                          <input disabled type="text" placeholder="$00.00" />
-                          <button disabled className="eg-btn btn--primary btn--sm" >Closed</button>
-                        </div>
-                          
-                          } */}
 
                     {new Date(productInfo.BidClosingDate) < new Date() ? (
                       <div className="form-inner gap-2">
@@ -321,7 +276,10 @@ function AuctionDetailsWrap() {
                           Closed
                         </button>
                       </div>
-                    ) : (
+                    ) :  productInfo.IsSold?<h3 id="countdown-timer-1 ">Sold at <span className="text-green-700 hover:text-green-900">${productInfo.SoldPrice}</span></h3>
+                    
+                    
+                    : (
                       <form>
                         <div className="form-inner gap-2">
                           <input
@@ -532,10 +490,12 @@ function AuctionDetailsWrap() {
                           
                           
                           </div>
-                          : allProducts.data.map((product, index) =>
+                          : allProducts.data.map((product, i) =>
                               index > 2 ? (
                                 ""
                               ) : (
+
+                                product.IsSold?"":
                                 <div
                                   key={index}
                                   className="col-lg-4 col-md-6 col-sm-10"
@@ -586,8 +546,7 @@ function AuctionDetailsWrap() {
                                           <img
                                             alt="images"
                                             src={
-                                              process.env.PUBLIC_URL +
-                                              "/images/icons/smile-emo.svg"
+                                              product.ProductOwner.ProfilePicture
                                             }
                                           />
                                         </div>

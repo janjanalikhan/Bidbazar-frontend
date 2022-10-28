@@ -51,12 +51,12 @@ return count
 
   }
 
-  const totalSold = () =>{
+  const totalSales= () =>{
 
     var count = 0;
-   sellerInfo.data.Products.map((product)=>{
-      count = count + product.Bids.length;
-      return product.Bids.length
+   sellerInfo.data.ProductsSold.map((product)=>{
+      count = count + parseInt( product.SoldPrice);
+      return product.SoldPrice
     })
 
 return count
@@ -113,7 +113,7 @@ return count
             <div className="col-md-6 col-sm-6">
               <div className="dashboard-card hover-border1 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".4s">
                 <div className="header">
-                  <h5>Total Bids</h5>
+                  <h5>Current Total Bids</h5>
                 </div>
                 <div className="body">
                   <div className="counter-item">
@@ -138,7 +138,7 @@ return count
                 </div>
                 <div className="body">
                   <div className="counter-item">
-                    <h2>N/A</h2>
+                  <h2>${sellerInfo?.data?.ProductsSold ?totalSales():""}</h2>
                   </div>
                   <div className="icon">
                     <svg width={50} height={50} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
@@ -146,6 +146,7 @@ return count
                     </svg>
                   </div>
                 </div>
+                
               </div>
             </div>
             <div className="col-md-6 col-sm-6">
@@ -155,7 +156,7 @@ return count
                 </div>
                 <div className="body">
                   <div className="counter-item">
-                    <h2>N/A</h2>
+                    <h2>{sellerInfo?.data?.ProductsSold ?sellerInfo.data.ProductsSold.length:""}</h2>
                   </div>
                   <div className="icon">
                     <svg width={50} height={50} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">

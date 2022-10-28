@@ -24,6 +24,7 @@
     "react-datetime-picker": "^4.0.1",
     "react-dom": "^18.1.0",
     "react-icons": "^4.6.0",
+    "react-loader-spinner": "^5.3.4",
     "react-modal-video": "^1.2.8",
     "react-notifications-component": "^4.0.1",
     "react-router-dom": "^6.3.0",

@@ -47,6 +47,7 @@ function MyProducts() {
     // reload();
   };
 
+  
   useEffect(() => {
     getsellerInfo();
     console.log("sellerInfo", sellerInfo);
@@ -96,6 +97,7 @@ function MyProducts() {
         role="tabpanel"
         aria-labelledby="v-pills-myproducts-tab"
       >
+        
         {/* table title*/}
         <div className="table-title-area">
           <h3>Products List</h3>
@@ -113,13 +115,14 @@ function MyProducts() {
               <tr>
                 <th>Image</th>
                 <th>Category</th>
-                <th>Initial Bid(USD)</th>
+                <th>Initial Bid</th>
                 <th>Highest Bid</th>
+              
                 <th>Max Allowed Bid</th>
-                <th>Sold Status</th>
+                <th>Status</th>
                 <th>Closing Date/Time</th>
                 <th>Remaining Days</th>
-
+                <th>Open Bids</th>
                 <th>Delete</th>
               </tr>
             </thead>
@@ -135,11 +138,12 @@ function MyProducts() {
                         />
                       </td>
                       <td data-label="Bidding ID">{i.Category}</td>
-                      <td data-label="Bid Amount(USD)">{i.InitialPrice}</td>
-                      <td data-label="Highest Bid">TO BE CAL</td>
-                      <td data-label="Bid Amount(USD)">{i.MaxAllowedBid}</td>
+                      <td data-label="Bid Amount(USD)">{i.InitialPrice}$</td>
+                      <td data-label="Highest Bid">N/A</td>
+
+                      <td data-label="Bid Amount(USD)">{i.MaxAllowedBid}$</td>
                       <td data-label="Status" className="text-green">
-                        {i.SoldStatus ? "Sold" : "Not Sold"}
+                        {i.IsSold ? "Sold" : "Not Sold"}
                       </td>
                       <td data-label="Bid Amount(USD)">
                         {moment(` ${i.BidClosingDate}`).format(
@@ -149,17 +153,14 @@ function MyProducts() {
 
                       <td data-label="Remaining Days">
 
+
                       {
                   Math.floor(((i.BidClosingDate-new Date()) % (1000 * 60)) / 1000)
 
                            !=0
                           ? <>
                           
-                        {  moment
-                          .duration(
-                            moment(i.BidClosingDate).diff(moment())
-                          )
-                          .days() + 1}D : <Counter date={i.BidClosingDate} />
+                         <Counter date={i.BidClosingDate} />
 
                           </>
                           : "Time Over"}
@@ -168,6 +169,21 @@ function MyProducts() {
 
                                 
                       </td>
+
+                      <td data-label="See Bids">
+                      <Link
+                            to={`${process.env.PUBLIC_URL}/seller/bids/${i._id}`}
+                            onClick={() =>
+                              window.scrollTo({ top: 0, behavior: "smooth" })
+                            }
+
+                            className='text-green-800 hover:text-green-900'
+                           
+                          >
+                           See Bids
+                          </Link>
+
+                          </td>
 
                       <td data-label="Delete">
                         <button

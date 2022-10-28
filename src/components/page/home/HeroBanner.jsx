@@ -63,7 +63,7 @@ function HeroBanner() {
                             urna.
                           </p>
                           <Link
-                            to={`${process.env.PUBLIC_URL}/live-auction`}
+                            to={`${process.env.PUBLIC_URL}/login`}
                             onClick={scrollTop}
                             className="eg-btn btn--primary btn--lg"
                           >

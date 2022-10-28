@@ -3,9 +3,10 @@ import ContentOfDashboardTab from "./ContentOfDashboardTab";
 import AddProducts from "./AddProducts";
 import ContentOfOrder from "./ContentOfOrder";
 import ContentOfProfile from "./ContentOfProfile";
-import ContentOfpurchase from "./ContentOfpurchase";
+import ContentOfsoldProducts from "./ContentOfsoldProducts";
 import DeshbordMenu from "./DashboardMenu";
 import MyProducts from "./MyProducts";
+
 
 function DashbordWrap() {
   return (
@@ -29,11 +30,12 @@ function DashbordWrap() {
                 <ContentOfDashboardTab />
                 <AddProducts />
                 <MyProducts/>
+              
 
 
                 {/* <ContentOfProfile />
                 <ContentOfOrder /> */}
-                <ContentOfpurchase />
+                <ContentOfsoldProducts />
               </div>
             </div>
           </div>

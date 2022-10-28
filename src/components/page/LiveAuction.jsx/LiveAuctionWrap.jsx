@@ -55,6 +55,7 @@ function LiveAuctionWrap() {
             {allProducts == null
               ? ""
               : allProducts.data.map((product, index) => (
+                product.IsSold?"":
                   <div key={index} className="col-lg-4 col-md-6 col-sm-10">
                     <div
                       data-wow-duration="1.5s"

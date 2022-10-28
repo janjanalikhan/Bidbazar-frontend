@@ -13,34 +13,34 @@ function ContentOfDashboardTab() {
 
 const {auth , setAuth} = useAuth();
 
-  const [sellerInfo, setsellerInfo] = useState(null);
-  const getsellerInfo = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:3500/seller/getsellerproducts",
+const [buyerInfo, setbuyerInfo] = useState(null);
+const getbuyerInfo = async () => {
+  try {
+    const res = await axios.get(
+      "http://localhost:3500/buyer/getbuyerproducts",
 
-        {
-          withCredentials: true,
-        }
-      );
+      {
+        withCredentials: true,
+      }
+    );
 
-      setsellerInfo(res);
-    } catch (e) {
-      
-      Swal.fire(e.code, "Please try again", "error");
-    }
+    setbuyerInfo(res);
+  } catch (e) {
+    Swal.fire(e.code, "Please try again", "error");
+  }
 
-    // reload();
-  };
-  useEffect(() => {
-    getsellerInfo();
-    console.log("sellerInfo", sellerInfo);
-  }, []);
+  // reload();
+};
+
+useEffect(() => {
+  getbuyerInfo();
+  console.log("buyerInfo", buyerInfo);
+}, []);
 
   const totalBids = () =>{
 
     var count = 0;
-   sellerInfo.data.Products.map((product)=>{
+   buyerInfo.data.Products.map((product)=>{
       count = count + product.Bids.length;
       return product.Bids.length
     })
@@ -51,10 +51,12 @@ return count
 
   const totalSold = () =>{
 
+  
     var count = 0;
-   sellerInfo.data.Products.map((product)=>{
-      count = count + product.Bids.length;
-      return product.Bids.length
+   buyerInfo.data.BoughtProducts.map((product)=>{
+  
+      count = count + parseInt( product.SoldPrice);
+      return product.SoldPrice
     })
 
 return count
@@ -72,11 +74,11 @@ return count
               <div className="dashboard-card hover-border1 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".2s">
                 
                 <div className="header">
-                  <h5>Total Products</h5>
+                  <h5>Bought Products</h5>
                 </div>
                 <div className="body">
                   <div className="counter-item">
-                    <h2>{sellerInfo?.data?sellerInfo.data.Products.length:"None"}</h2>
+                    <h2>{buyerInfo?.data?buyerInfo.data.BoughtProducts.length:"None"}</h2>
                   </div>
                   <div className="icon">
                     <svg width={50} height={50} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
@@ -112,11 +114,12 @@ return count
             <div className="col-md-6 col-sm-6">
               <div className="dashboard-card hover-border1 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".4s">
                 <div className="header">
-                  <h5>Total Bids</h5>
+                  <h5>Cost spend</h5>
                 </div>
                 <div className="body">
                   <div className="counter-item">
-                    <h2>{sellerInfo?.data?.Products ?totalBids():""}</h2>
+
+                    <h2>${buyerInfo==null ?"0":totalSold()}</h2>
                   </div>
                   <div className="icon">
                     <svg width={46} height={48} viewBox="0 0 46 48" xmlns="http://www.w3.org/2000/svg">
