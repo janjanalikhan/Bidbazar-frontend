@@ -6,11 +6,14 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
 
 function SignUpWrap() {
   const navigate = useNavigate();
   const [refresh, setRefresh] = useState(false)
 
+  const [phoneValue, setphoneValue] = useState("00")
   const showNotification = () => {
     Store.addNotification({
       title: "Thanks for signing up!",
@@ -71,7 +74,7 @@ function SignUpWrap() {
         Name: val.name,
         Email: val.email,
         Password: val.password,
-        PhoneNumber: val.phonenumber,
+        PhoneNumber: phoneValue,
         Addres: val.address,
         Country: val.country,
         Role: val.role,
@@ -106,11 +109,12 @@ function SignUpWrap() {
     const errors = {};
     if (!values.name) {
       errors.name = "Required";
-    } else if (values.name.length > 15) {
-      errors.name = "Must be 15 characters or less";
+    } else if (values.name.length > 25) {
+      errors.name = "Must be 25 characters or less";
     }
-
-    if (!isPhoneNumber(values.phonenumber)) {
+    // phoneValue==null
+    
+    if (phoneValue.length >18 || phoneValue.length <12 ) {
       errors.phonenumber = "Phone Number not valid";
     }
 
@@ -159,7 +163,7 @@ function SignUpWrap() {
   const formik = useFormik({
     initialValues: {
       name: "",
-      phonenumber: "",
+      phonenumber:"",
       password: "",
       email: "",
       address: "",
@@ -178,7 +182,6 @@ function SignUpWrap() {
       addToDatabase(values);
     },
   });
-
   return (
     <>
       <div className="signup-section pt-120 pb-120">
@@ -205,6 +208,8 @@ function SignUpWrap() {
                   <p>
                     Do you already have an account?{" "}
                     <Link
+
+                    className="bg-green-500 hover:bg-green-700 pointer:cusor text-white p-2 ml-2 rounded"
                       to={`${process.env.PUBLIC_URL}/login`}
                       onClick={() =>
                         window.scrollTo({ top: 0, behavior: "smooth" })
@@ -226,7 +231,7 @@ function SignUpWrap() {
                           placeholder="Full Name"
                         />
                         {formik.errors.name == null &&
-                        formik.values.name != "" ? (
+                        formik.values.name != "00" ? (
                           <span className="text-green-600 text-xs">
                             Looks good!
                           </span>
@@ -242,15 +247,15 @@ function SignUpWrap() {
                     <div className="col-md-6">
                       <div className="form-inner">
                         <label>Phone Number *</label>
-                        <input
+                        <PhoneInput
                           id="phonenumber"
-                          onChange={formik.handleChange}
-                          value={formik.values.phonenumber}
+                          onChange={setphoneValue}
+                          defaultValue={phoneValue}
                           type="tel"
                           placeholder="Phone Number"
                         />
                         {formik.errors.phonenumber == null &&
-                        formik.values.phonenumber != "" ? (
+                        phoneValue != "00" ? (
                           <span className="text-green-600 text-xs">
                             Looks good!
                           </span>
@@ -450,16 +455,10 @@ function SignUpWrap() {
                       to={"#"}
                       className="eg-btn google-btn d-flex align-items-center"
                     >
-                      <i className="bx bxl-google" />
+                      <i className="bx bxl-google pointer:cusor" />
                       <span>signup whit google</span>
                     </Link>
-                    <Link
-                      to={"#"}
-                      className="eg-btn facebook-btn d-flex align-items-center"
-                    >
-                      <i className="bx bxl-facebook" />
-                      signup whit facebook
-                    </Link>
+                   
                   </div>
                 </div>
                 <div className="form-poicy-area">
