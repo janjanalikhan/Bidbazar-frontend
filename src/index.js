@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState, useEffect} from 'react'
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -26,10 +26,12 @@ import Layout2 from "./components/layout/Layout2";
 import Layout3 from "./components/layout/Layout3";
 import Merchant from "./components/page/joinMerchant/Merchant";
 import { ThemeContextProvider } from "./components/contexts/themeContext";
-
+import ProfilePage from "./components/page/home/ProfilePage";
 import useAuth from "./components/hooks/useAuth";
 import LoginAuth from "./Auth/LoginAuth";
 import RequireAuth from "./Auth/RequireAuth";
+import { useParams } from "react-router-dom";
+import { io } from "socket.io-client";
 //Default Warniing Error Hide
 // console.log = console.warn = console.error = () => {};
 
@@ -44,7 +46,12 @@ const Root = () => {
   const { auth } = useAuth();
   // const auth = {Role: "Admin"}
 
+  const { id } = useParams();
+
   const location = useLocation();
+
+
+
 
   console.log("IM AT CON ROUTES: ", auth.Role);
 
@@ -58,7 +65,6 @@ const Root = () => {
         <Route element={<LoginAuth />}>
           <Route exact path={`/about`} element={<Layout page={About} />} />
           <Route exact path={`/contact`} element={<Layout page={Contact} />} />
-          <Route exact path={`/blog`} element={<Layout page={Blog} />} />
 
           <Route
             exact
@@ -70,6 +76,10 @@ const Root = () => {
 
           <Route path="/login" element={<Layout page={Login} />} />
           <Route path="/signup" element={<Layout page={SignUp} />} />
+
+          <Route path="/profile/:id" element={<Layout page={ProfilePage} />} />
+
+
         </Route>
 
         <Route element={<RequireAuth role="Seller" />}>
@@ -120,7 +130,7 @@ const Root = () => {
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/buyer/auction-details/:id`}
-            element={<Layout page={AuctionDetails} />}
+            element={<Layout page={AuctionDetails}/>}
           />
         </Route>
 

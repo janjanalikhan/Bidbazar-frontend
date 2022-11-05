@@ -132,7 +132,7 @@ return count
                 </div>
               </div>
             </div>
-
+{/* 
             <div className="col-md-6 col-sm-6">
               <div className="dashboard-card hover-border1 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".6s">
                 <div className="header">
@@ -149,8 +149,8 @@ return count
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-md-6 col-sm-6">
+            </div> */}
+            {/* <div className="col-md-6 col-sm-6">
               <div className="dashboard-card hover-border1 wow fadeInDown" data-wow-duration="1.5s" data-wow-delay=".8s">
                 <div className="header">
                   <h5>Total Sold</h5>
@@ -168,7 +168,7 @@ return count
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>   

@@ -33,6 +33,12 @@ function LoginWrap() {
           console.log(error.text);
         }
       );
+
+      Swal.fire(
+        "Reset Password",
+        "New Password has been sent to your email",
+        "success"
+      );
   };
 
  const addNewPassToDatabase = async (pass, email) => {
@@ -353,7 +359,7 @@ function LoginWrap() {
                     Log in
                   </div>
                 </form>
-                <div className="alternate-signup-box">
+                {/* <div className="alternate-signup-box">
                   <h6>or signup WITH</h6>
                   <div className="btn-group gap-4">
                     <Link
@@ -364,8 +370,8 @@ function LoginWrap() {
                       <span>signup whit google</span>
                     </Link>
                   </div>
-                </div>
-                <div className="form-poicy-area">
+                </div> */}
+                <div className="form-poicy-area mt-5">
                   <p>
                     By clicking the "signup" button, you create a Cobiro
                     account, and you agree to Cobiro's{" "}

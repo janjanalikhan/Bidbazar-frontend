@@ -6,6 +6,7 @@ import AuctionDetailsWrap from './AuctionDetailsWrap'
 
 
 function AuctionDetails() {
+  
 
 
 
@@ -15,7 +16,7 @@ function AuctionDetails() {
   return (
     <>
      <Breadcrumb pageName="Auction Details" pageTitle="Auction Details" />   
-     <AuctionDetailsWrap/>
+     <AuctionDetailsWrap />
      <AboutUsCounter/>
     </>
   )

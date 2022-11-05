@@ -2,12 +2,29 @@ import React, { useEffect, useReducer, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import TopbarHeader from "./TopbarHeader";
 import useAuth from "../hooks/useAuth";
+import {FiLogOut} from "@react-icons/all-files/fi/FiLogOut";
+import axios from "axios";
+import { io } from "socket.io-client";
+axios.defaults.withCredentials = true;
+
 
 function Header() {
   const { auth, setAuth } = useAuth();
   const [search, setSearch] = useState(false);
   const [sidebar, setSidebar] = useState(false);
 
+  const logout = async () => {
+		await axios.get(
+			"http://localhost:3500/logout",
+
+			{
+				withCredentials: true,
+			}
+		);
+
+
+		window.location.reload(false);
+	}
 
 
   // Sticky Menu Area
@@ -341,11 +358,25 @@ function Header() {
             <i className="bi bi-search" />
           </div>
           { auth?.Name ?
+
+          <div className="flex ">
+
           <div className="eg-btn btn--primary header-btn">
            <Link to={`/${auth.Role}/dashboard`} replace onClick={scrollTop}>
               {auth.Name}'s Account
             </Link> 
-          </div> :
+          </div>
+
+
+          
+          <div className="eg-btn btn--primary header-btn flex items-center justify-center  ml-4">
+          <FiLogOut className="flex mt-1" onClick={()=>{logout()}} />
+            
+            </div>
+          
+          </div>
+          
+          :
           
           <div className="eg-btn btn--primary header-btn">
           <Link to={`${process.env.PUBLIC_URL}/login`} onClick={scrollTop}>

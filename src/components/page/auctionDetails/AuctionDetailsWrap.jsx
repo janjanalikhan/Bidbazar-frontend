@@ -21,13 +21,16 @@ import moment from "moment";
 import { Store } from "react-notifications-component";
 axios.defaults.withCredentials = true;
 
-function AuctionDetailsWrap() {
+function AuctionDetailsWrap({socket}) {
+ 
+
   const { id } = useParams();
   const navigate = useNavigate();
   const { auth, setAuth } = useAuth();
   const [allProducts, setallProducts] = useState(null);
   const [productInfo, setproductInfo] = useState(null);
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   const getproductInfo = async () => {
     try {
       const res = await axios.post(
@@ -69,8 +72,6 @@ function AuctionDetailsWrap() {
     getproductInfo();
     getAllProducts();
   }, []);
-
-  console.log("productInfo", productInfo);
 
   const addToDatabase = async (val) => {
     console.log(
@@ -175,6 +176,7 @@ function AuctionDetailsWrap() {
 
   const [index, setIndex] = useState(0);
 
+
   return (
     <>
       {productInfo == null ? (
@@ -195,7 +197,6 @@ function AuctionDetailsWrap() {
           <div className="container">
             <div className="row g-4 mb-50">
               <div className="col-xl-5 col-lg-7 d-flex flex-row  align-items-start   justify-content-center flex-md-nowrap flex-wrap gap-4">
-               
                 <div
                   className="tab-content  mb-4 d-flex justify-content-lg-start justify-content-center    wow fadeInUp"
                   data-wow-duration="1.5s"
@@ -207,24 +208,19 @@ function AuctionDetailsWrap() {
                   >
                     <div className="auction-gallery-timer  d-flex align-items-center justify-content-center  flex-wrap">
                       <h3 id="countdown-timer-1 ">
-                        {
-                          productInfo.IsSold?"Sold":
-                        
-                        Math.floor(
-                          ((productInfo.BidClosingDate - new Date()) %
-                            (1000 * 60)) /
-                            1000
-                        ) != 0 ? (
+                        {productInfo.IsSold ? (
+                          "Sold"
+                        ) : Math.floor(
+                            ((productInfo.BidClosingDate - new Date()) %
+                              (1000 * 60)) /
+                              1000
+                          ) != 0 ? (
                           <>
-                         
-                          <Counter date={productInfo.BidClosingDate} />
-                              </>
+                            <Counter date={productInfo.BidClosingDate} />
+                          </>
                         ) : (
                           "Time Over"
-                        )
-                        
-                        
-                        }
+                        )}
                       </h3>
                     </div>
                     <img
@@ -233,8 +229,6 @@ function AuctionDetailsWrap() {
                       className="  h-[350px]  w-auto object-contain"
                     />
                   </div>
-
-                  
                 </div>
               </div>
               <div className="col-xl-6 col-lg-5">
@@ -255,16 +249,19 @@ function AuctionDetailsWrap() {
                       <div className="flex gap-1 ">
                         <p>
                           Minimum Bid{" "}
-                          <strong className="text-green-600 hover:text-green-900">${productInfo.InitialPrice}</strong> |
+                          <strong className="text-green-600 hover:text-green-900">
+                            ${productInfo.InitialPrice}
+                          </strong>{" "}
+                          |
                         </p>
                         <p>
                           Maximum Allowed Bid{" "}
-                          <strong className="text-green-600 hover:text-green-900">${productInfo.MaxAllowedBid}</strong>
+                          <strong className="text-green-600 hover:text-green-900">
+                            ${productInfo.MaxAllowedBid}
+                          </strong>
                         </p>
                       </div>
                     </div>
-
-                  
 
                     {new Date(productInfo.BidClosingDate) < new Date() ? (
                       <div className="form-inner gap-2">
@@ -276,10 +273,14 @@ function AuctionDetailsWrap() {
                           Closed
                         </button>
                       </div>
-                    ) :  productInfo.IsSold?<h3 id="countdown-timer-1 ">Sold at <span className="text-green-700 hover:text-green-900">${productInfo.SoldPrice}</span></h3>
-                    
-                    
-                    : (
+                    ) : productInfo.IsSold ? (
+                      <h3 id="countdown-timer-1 ">
+                        Sold at{" "}
+                        <span className="text-green-700 hover:text-green-900">
+                          ${productInfo.SoldPrice}
+                        </span>
+                      </h3>
+                    ) : (
                       <form>
                         <div className="form-inner gap-2">
                           <input
@@ -302,13 +303,16 @@ function AuctionDetailsWrap() {
                             {formik.errors.bidamount}
                           </span>
 
-                          <button
-                            className="eg-btn btn--primary btn--sm bg-black"
-                            onClick={formik.handleSubmit}
+                          <div
+                            className="eg-btn btn--primary btn--sm bg-black cursor-pointer"
+                            onClick={() => {
+                              formik.handleSubmit()
+                            
+                            }}
                             // type="submit"
                           >
                             Place Bid
-                          </button>
+                          </div>
                         </div>
                       </form>
                     )}
@@ -423,51 +427,44 @@ function AuctionDetailsWrap() {
                   >
                     <div className="bid-list-area">
                       <ul className="bid-list">
-                        {productInfo.Bids.length == 0
-                          ? 
+                        {productInfo.Bids.length == 0 ? (
                           <div className="text-xl h-[300px] flex  items-center justify-center  text-green-700 text-center">
-                            
-                            No bids currently placed  
-                            
-                            
-                            </div>
-                          : productInfo.Bids.map((bid, index) => (
-                              <li>
-                                <div className="row d-flex align-items-center">
-                                  <div className="col-7">
-                                    <div className="bidder-area">
-                                      <div className="bidder-img ">
-                                        <img
-                                          alt={'none'}
-                                          src={
-                                            bid.Bidder.ProfilePicture
-                                          }
-
-                                          style={{height:"55px" , borderRadius:"50%"}}
-                                          
-
-                                          
-                                        />
-                                      </div>
-
-                                      <div className="bidder-content">
-                                        <Link to={"#"}>
-                                          <h6>{bid.Bidder.Name}</h6>
-                                        </Link>
-                                        <p>${bid.Amount}</p>
-                                      </div>
+                            No bids currently placed
+                          </div>
+                        ) : (
+                          productInfo.Bids.map((bid, index) => (
+                            <li>
+                              <div className="row d-flex align-items-center">
+                                <div className="col-7">
+                                  <div className="bidder-area">
+                                    <div className="bidder-img ">
+                                      <img
+                                        alt={"none"}
+                                        src={bid.Bidder.ProfilePicture}
+                                        style={{
+                                          height: "55px",
+                                          borderRadius: "50%",
+                                        }}
+                                      />
                                     </div>
-                                  </div>
-                                  <div className="col-5 text-end">
-                                    <div className="bid-time">
-                                      <p>{moment(bid.Date).fromNow()}</p>
+
+                                    <div className="bidder-content">
+                                      <Link to={"#"}>
+                                        <h6>{bid.Bidder.Name}</h6>
+                                      </Link>
+                                      <p>${bid.Amount}</p>
                                     </div>
                                   </div>
                                 </div>
-                              </li>
-                            ))}
-
-                            
+                                <div className="col-5 text-end">
+                                  <div className="bid-time">
+                                    <p>{moment(bid.Date).fromNow()}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          ))
+                        )}
                       </ul>
 
                       <br></br>
@@ -481,165 +478,155 @@ function AuctionDetailsWrap() {
                   >
                     <div className="row d-flex justify-content-center">
                       <div className="row gy-4 mb-60 d-flex justify-content-center">
-                        {allProducts == null
-                          ? 
-
+                        {allProducts == null ? (
                           <div className="text-xl h-[300px] flex  items-center justify-center  text-green-700 text-center">
-                            
-                          No products curently added  
-                          
-                          
+                            No products curently added
                           </div>
-                          : allProducts.data.map((product, i) =>
-                              index > 2 ? (
-                                ""
-                              ) : (
-
-                                product.IsSold?"":
+                        ) : (
+                          allProducts.data.map((product, i) =>
+                            index > 2 ? (
+                              ""
+                            ) : product.IsSold ? (
+                              ""
+                            ) : (
+                              <div
+                                key={index}
+                                className="col-lg-4 col-md-6 col-sm-10"
+                              >
                                 <div
-                                  key={index}
-                                  className="col-lg-4 col-md-6 col-sm-10"
+                                  data-wow-duration="1.5s"
+                                  data-wow-delay="0.2s"
+                                  className="eg-card auction-card1 wow fadeInDown"
                                 >
-                                  <div
-                                    data-wow-duration="1.5s"
-                                    data-wow-delay="0.2s"
-                                    className="eg-card auction-card1 wow fadeInDown"
-                                  >
-                                    <div className="auction-img">
-                                      <img
-                                        alt="images"
-                                        src={product.Image}
-                                        className="h-[250px] object-cover"
-                                      />
-                                      <div className="auction-timer">
-                                        <div className="countdown" id="timer1">
-                                          <div className="hidden hover:display">
-                                            {moment
-                                              .duration(
-                                                moment(
-                                                  product.BidClosingDate
-                                                ).diff(moment())
-                                              )
-                                              .days() + 1}{" "}
-                                            Days
-                                          </div>
-                                          <h4>
-                                            {Math.floor(
-                                              ((product.BidClosingDate -
-                                                new Date()) %
-                                                (1000 * 60)) /
-                                                1000
-                                            ) != 0 ? (
-                                              <>
-                                                <Counter
-                                                  date={product.BidClosingDate}
-                                                />
-                                              </>
-                                            ) : (
-                                              "Time Over"
-                                            )}
-                                          </h4>
+                                  <div className="auction-img">
+                                    <img
+                                      alt="images"
+                                      src={product.Image}
+                                      className="h-[250px] object-cover"
+                                    />
+                                    <div className="auction-timer">
+                                      <div className="countdown" id="timer1">
+                                        <div className="hidden hover:display">
+                                          {moment
+                                            .duration(
+                                              moment(
+                                                product.BidClosingDate
+                                              ).diff(moment())
+                                            )
+                                            .days() + 1}{" "}
+                                          Days
                                         </div>
-                                      </div>
-                                      <div className="author-area">
-                                        <div className="author-emo">
-                                          <img
-                                            alt="images"
-                                            src={
-                                              product.ProductOwner.ProfilePicture
-                                            }
-                                          />
-                                        </div>
-                                        <div className="author-name">
-                                          <span>
-                                            Owner @{product.ProductOwner.Name}
-                                          </span>
-                                        </div>
+                                        <h4>
+                                          {Math.floor(
+                                            ((product.BidClosingDate -
+                                              new Date()) %
+                                              (1000 * 60)) /
+                                              1000
+                                          ) != 0 ? (
+                                            <>
+                                              <Counter
+                                                date={product.BidClosingDate}
+                                              />
+                                            </>
+                                          ) : (
+                                            "Time Over"
+                                          )}
+                                        </h4>
                                       </div>
                                     </div>
-                                    <div className="auction-content">
-                                      <h4>
-                                        <button
-                                         
-                                          onClick={() =>
-                                            { 
-                                              navigate(`/buyer/auction-details/${product._id}`, {replace: true})
-                                              window.scrollTo({
-                                                top: 0,
-                                                behavior: "smooth",
-                                              })
-                                              getproductInfo();
-                                              getAllProducts();
-                                            }
+                                    <div className="author-area">
+                                      <div className="author-emo">
+                                        <img
+                                          alt="images"
+                                          src={
+                                            product.ProductOwner.ProfilePicture
                                           }
-                                        >
-                                          {product.Name}
-                                        </button>
-                                      </h4>
-                                      <p>
-                                        Bidding Price :{" "}
-                                        <span>${product.InitialPrice}</span>
-                                      </p>
-                                      <div className="auction-card-bttm">
-                                        <button
-                                        
-                                          onClick={() =>
-
-                                           
-                                           { 
-                                            navigate(`/buyer/auction-details/${product._id}`, {replace: true})
-                                            window.scrollTo({
-                                              top: 0,
-                                              behavior: "smooth",
-                                            })
-                                            getproductInfo();
-                                            getAllProducts();
-                                          }
-                                            
-
-                                          }
-                                          className="eg-btn btn--primary btn--sm"
-                                        >
-                                          Place a Bid
-                                        </button>
-                                        <div className="share-area">
-                                          <ul className="social-icons d-flex">
-                                            <li>
-                                              <Link to={"#"}>
-                                                <i className="bx bxl-facebook" />
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link to={"#"}>
-                                                <i className="bx bxl-twitter" />
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link to={"#"}>
-                                                <i className="bx bxl-pinterest" />
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link to={"#"}>
-                                                <i className="bx bxl-instagram" />
-                                              </Link>
-                                            </li>
-                                          </ul>
-                                          <div>
-                                            <Link
-                                              to={"#"}
-                                              className="share-btn"
-                                            >
-                                              <i className="bx bxs-share-alt" />
+                                        />
+                                      </div>
+                                      <div className="author-name">
+                                        <span>
+                                          Owner @{product.ProductOwner.Name}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="auction-content">
+                                    <h4>
+                                      <button
+                                        onClick={() => {
+                                          navigate(
+                                            `/buyer/auction-details/${product._id}`,
+                                            { replace: true }
+                                          );
+                                          window.scrollTo({
+                                            top: 0,
+                                            behavior: "smooth",
+                                          });
+                                          getproductInfo();
+                                          getAllProducts();
+                                        }}
+                                      >
+                                        {product.Name}
+                                      </button>
+                                    </h4>
+                                    <p>
+                                      Bidding Price :{" "}
+                                      <span>${product.InitialPrice}</span>
+                                    </p>
+                                    <div className="auction-card-bttm">
+                                      <button
+                                        onClick={() => {
+                                          navigate(
+                                            `/buyer/auction-details/${product._id}`,
+                                            { replace: true }
+                                          );
+                                          window.scrollTo({
+                                            top: 0,
+                                            behavior: "smooth",
+                                          });
+                                          getproductInfo();
+                                          getAllProducts();
+                                        }}
+                                        className="eg-btn btn--primary btn--sm"
+                                      >
+                                        Place a Bid
+                                      </button>
+                                      <div className="share-area">
+                                        <ul className="social-icons d-flex">
+                                          <li>
+                                            <Link to={"#"}>
+                                              <i className="bx bxl-facebook" />
                                             </Link>
-                                          </div>
+                                          </li>
+                                          <li>
+                                            <Link to={"#"}>
+                                              <i className="bx bxl-twitter" />
+                                            </Link>
+                                          </li>
+                                          <li>
+                                            <Link to={"#"}>
+                                              <i className="bx bxl-pinterest" />
+                                            </Link>
+                                          </li>
+                                          <li>
+                                            <Link to={"#"}>
+                                              <i className="bx bxl-instagram" />
+                                            </Link>
+                                          </li>
+                                        </ul>
+                                        <div>
+                                          <Link to={"#"} className="share-btn">
+                                            <i className="bx bxs-share-alt" />
+                                          </Link>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                              )
-                            )}
+                              </div>
+                            )
+                          )
+                        )}
                       </div>
                     </div>
                   </div>
@@ -655,8 +642,7 @@ function AuctionDetailsWrap() {
                     <span>Cars</span>
                     <h3>Toyota AIGID A Clasis Cars Sale</h3>
                     <Link
-                      
-                      onClick={() =>  window.open("https://toyota-highway.com/") }
+                      onClick={() => window.open("https://toyota-highway.com/")}
                       className="eg-btn btn--primary card--btn"
                     >
                       Google Ad

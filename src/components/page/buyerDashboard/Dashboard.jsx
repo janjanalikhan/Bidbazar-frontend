@@ -8,9 +8,9 @@ function buyerDashboard() {
 
   return (
     <>
-     <Breadcrumb pageName="Dashboard Under Construction" pageTitle="Dashboard Under Construction"/> 
+     <Breadcrumb pageName="Dashboard Buyer" pageTitle="Dashboard Buyer"/> 
      <DashbordWrap/>
-     <AboutUsCounter/>  
+     {/* <AboutUsCounter/>   */}
     </>
   )
 }

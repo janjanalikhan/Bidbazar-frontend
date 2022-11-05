@@ -177,7 +177,7 @@ function ContentOfsoldProducts() {
         <div className="table-pagination">
           <p>
             Total Products:{" "}
-            {sellerInfo?.data ? sellerInfo.data.Products.length : ""}{" "}
+            {sellerInfo?.data ? sellerInfo.data.ProductsSold.length : ""}{" "}
           </p>
 
           {/* <nav className="pagination-wrap">
