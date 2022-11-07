@@ -3,7 +3,7 @@ import ContentOfDashboardTab from "./ContentOfDashboardTab";
 import AddProducts from "./AddProducts";
 import ContentOfOrder from "./ContentOfOrder";
 import ContentOfProfile from "./ContentOfProfile";
-import ContentOfpurchase from "./ContentOfpurchase";
+import PaymentsToBeMade from "./PaymentsToBeMade";
 import DeshbordMenu from "./DashboardMenu";
 import MyProducts from "./MyProducts";
 
@@ -33,6 +33,7 @@ function DashbordWrap() {
               <div className="tab-content" id="v-pills-tabContent">
                 <ContentOfDashboardTab />
                 <MyProducts/>
+                <PaymentsToBeMade/>
                 {/* <AddProducts />
                
                 <ContentOfProfile />

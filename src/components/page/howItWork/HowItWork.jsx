@@ -10,7 +10,7 @@ function HowItWork() {
      <Breadcrumb pageName="How It Works" pageTitle="How It Works"/>  
      <HowItWorkContent/>
      <WhyCHooseUs/> 
-     <AboutUsCounter/>
+     {/* <AboutUsCounter/> */}
     </>
   )
 }

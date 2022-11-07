@@ -12,7 +12,7 @@ function About() {
       <WhoWeAreArea/>
       <WhyCHooseUs/>
       <AboutTestimonial/>
-      <AboutUsCounter/>
+      {/* <AboutUsCounter/> */}
     </>
   );
 }

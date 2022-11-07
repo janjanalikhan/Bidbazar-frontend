@@ -138,6 +138,43 @@ function Header() {
             </div>
           </div>
           <ul className="menu-list">
+
+
+          <li
+              //className="menu-item-has-children"
+              onClick={() => dispatch({ type: "homeOne" })}
+            >
+              <Link
+                to={`/${auth.Role}/dashboard`} onClick={scrollTop}
+                className={`${
+                  state.activeMenu === "homeOne" ? "active" : ""
+                } ${"drop-down"}`}
+              >
+                Dashboard
+              </Link>
+            
+            </li>
+
+
+            {auth.Role=="Buyer"?
+             <li
+             //className="menu-item-has-children"
+             onClick={() => dispatch({ type: "news" })}
+           >
+             <Link
+               to={`/buyer/live-auction`} onClick={scrollTop}
+               className={`${
+                 state.activeMenu === "news" ? "active" : ""
+               } ${"drop-down"}`}
+             >
+               Live Auction
+             </Link>
+           
+           </li>
+          :  ""
+          
+          }
+
             <li
               //className="menu-item-has-children"
               onClick={() => dispatch({ type: "homeOne" })}
@@ -145,43 +182,14 @@ function Header() {
               <Link
                 to={`${process.env.PUBLIC_URL}/`} onClick={scrollTop}
                 className={`${
-                  state.activeMenu === "homeOne" ? "active" : ""
+                  state.activeMenu === "brows" ? "active" : ""
                 } ${"drop-down"}`}
               >
                 Home
               </Link>
-              {/*
-              <i className="bx bx-plus dropdown-icon" />
-               <ul
-                className={
-                  state.activeMenu === "homeOne"
-                    ? "submenu d-block"
-                    : "submenu d-xl-block d-none"
-                }
-              >
-                <li>
-                  <Link to={`${process.env.PUBLIC_URL}/`} onClick={scrollTop}>
-                    Home 1
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={`${process.env.PUBLIC_URL}index2`}
-                    onClick={scrollTop}
-                  >
-                    Home 2
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={`${process.env.PUBLIC_URL}index3`}
-                    onClick={scrollTop}
-                  >
-                    Home 3
-                  </Link>
-                </li>
-              </ul> */}
+            
             </li>
+
             <li onClick={() => dispatch({ type: "about" })}>
               <Link
                 to={`${process.env.PUBLIC_URL}/about`}
@@ -354,9 +362,9 @@ function Header() {
               </h6>
             </div>
           </div>
-          <div className="search-btn" onClick={searchFullScreen}>
+          {/* <div className="search-btn" onClick={searchFullScreen}>
             <i className="bi bi-search" />
-          </div>
+          </div> */}
           { auth?.Name ?
 
           <div className="flex ">

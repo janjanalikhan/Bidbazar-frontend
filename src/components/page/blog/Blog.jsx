@@ -8,7 +8,7 @@ function Blog() {
     <>
      <Breadcrumb pageTitle="Blog" pageName="Our Blog"/>
      <BlogWrap/>
-     <AboutUsCounter/>
+     {/* <AboutUsCounter/> */}
 
     </>
   )

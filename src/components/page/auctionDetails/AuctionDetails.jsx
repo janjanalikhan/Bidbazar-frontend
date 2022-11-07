@@ -17,7 +17,7 @@ function AuctionDetails() {
     <>
      <Breadcrumb pageName="Auction Details" pageTitle="Auction Details" />   
      <AuctionDetailsWrap />
-     <AboutUsCounter/>
+     {/* <AboutUsCounter/> */}
     </>
   )
 }

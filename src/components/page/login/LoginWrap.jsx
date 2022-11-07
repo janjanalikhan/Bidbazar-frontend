@@ -233,7 +233,7 @@ function LoginWrap() {
                   className="hidden"
                   id="password"
                     value={`${newPassword}`}
-                    
+                    type="password"
                     name="user_password"
                   />
                   <input className="mt-3 bg-[#32c36c] text-white rounded-md" type="submit" value="Reset" />

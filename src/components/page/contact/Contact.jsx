@@ -8,7 +8,7 @@ function Contact() {
     <>
     <Breadcrumb pageName = 'Contact Us' pageTitle = 'Contact Us '/>
     <ContactWrapper/>
-    <AboutUsCounter/>  
+    {/* <AboutUsCounter/>   */}
     </>
   );
 }

@@ -64,10 +64,10 @@ function AddProducts() {
   const validate = (values) => {
     const errors = {};
 
-    if(!values.name || values.name.length > 15){
+    if(!values.name ){
       errors.name = "Required";
     }
-    if(!values.description || values.name.length > 15){
+    if(!values.description ){
       errors.description = "Required";
     }
     if(!values.category){

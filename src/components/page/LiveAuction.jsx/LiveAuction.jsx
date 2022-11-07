@@ -8,7 +8,7 @@ function LiveAuction() {
     <>
      <Breadcrumb pageName="Live Auction" pageTitle="Live Auction"/>
      <LiveAuctionWrap/>
-     <AboutUsCounter/>   
+     {/* <AboutUsCounter/>    */}
     </>
   )
 }

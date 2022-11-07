@@ -1,4 +1,4 @@
-import React ,{useState, useEffect} from 'react'
+import React, { useState, useEffect } from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -22,6 +22,7 @@ import BlogDetails from "./components/page/BlogDetails/BlogDetails";
 import LiveAuction from "./components/page/LiveAuction.jsx/LiveAuction";
 import HowItWork from "./components/page/howItWork/HowItWork";
 import About from "./components/page/about/About";
+import Checkout from "./components/page/buyerDashboard/Checkout";
 import Layout2 from "./components/layout/Layout2";
 import Layout3 from "./components/layout/Layout3";
 import Merchant from "./components/page/joinMerchant/Merchant";
@@ -50,9 +51,6 @@ const Root = () => {
 
   const location = useLocation();
 
-
-
-
   console.log("IM AT CON ROUTES: ", auth.Role);
 
   return (
@@ -72,14 +70,11 @@ const Root = () => {
             element={<Layout page={HowItWork} />}
           />
           <Route exact path={`/faq`} element={<Layout page={Faq} />} />
-   
 
           <Route path="/login" element={<Layout page={Login} />} />
           <Route path="/signup" element={<Layout page={SignUp} />} />
 
           <Route path="/profile/:id" element={<Layout page={ProfilePage} />} />
-
-
         </Route>
 
         <Route element={<RequireAuth role="Seller" />}>
@@ -88,23 +83,31 @@ const Root = () => {
             path={`seller/dashboard`}
             element={<Layout page={Dashboard} />}
           />
+
           <Route
             exact
             path={`seller/bids/:id`}
-          
             element={<Layout page={Bids} />}
             Bids
-          >
+          ></Route>
 
-          </Route>
+          <Route
+            exact
+            path={`seller/about`}
+            element={<Layout page={About} />}
+          />
+          <Route
+            exact
+            path={`seller/contact`}
+            element={<Layout page={Contact} />}
+          />
 
-          <Route exact path={`/about`} element={<Layout page={About} />} />
-          <Route exact path={`/contact`} element={<Layout page={Contact} />} />
-          <Route exact path={`/blog`} element={<Layout page={Blog} />} />
-          <Route exact path={`/how-works`} element={<Layout page={HowItWork} />} />
-          <Route exact path={`/faq`} element={<Layout page={Faq} />} />
-
-
+          <Route
+            exact
+            path={`seller/how-works`}
+            element={<Layout page={HowItWork} />}
+          />
+          <Route exact path={`seller/faq`} element={<Layout page={Faq} />} />
         </Route>
 
         <Route element={<RequireAuth role="Buyer" />}>
@@ -114,12 +117,24 @@ const Root = () => {
             element={<Layout page={buyerDashboard} />}
           />
 
+          <Route
+            exact
+            path={`buyer/checkout-success/:SellerID/:ProductID/:SoldPrice`}
+            element={<Layout page={Checkout} />}
+          />
 
-          <Route exact path={`/about`} element={<Layout page={About} />} />
-          <Route exact path={`/contact`} element={<Layout page={Contact} />} />
-          <Route exact path={`/blog`} element={<Layout page={Blog} />} />
-          <Route exact path={`/how-works`} element={<Layout page={HowItWork} />} />
-          <Route exact path={`/faq`} element={<Layout page={Faq} />} />
+          <Route exact path={`buyer/about`} element={<Layout page={About} />} />
+          <Route
+            exact
+            path={`buyer/contact`}
+            element={<Layout page={Contact} />}
+          />
+          <Route
+            exact
+            path={`buyer/how-works`}
+            element={<Layout page={HowItWork} />}
+          />
+          <Route exact path={`buyer/faq`} element={<Layout page={Faq} />} />
 
           <Route
             exact
@@ -130,7 +145,7 @@ const Root = () => {
           <Route
             exact
             path={`${process.env.PUBLIC_URL}/buyer/auction-details/:id`}
-            element={<Layout page={AuctionDetails}/>}
+            element={<Layout page={AuctionDetails} />}
           />
         </Route>
 

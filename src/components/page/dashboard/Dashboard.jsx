@@ -8,7 +8,7 @@ function Dashboard() {
     <>
      <Breadcrumb pageName="Dashboard" pageTitle="Dashboard"/> 
      <DashbordWrap/>
-     <AboutUsCounter/>  
+     {/* <AboutUsCounter/>   */}
     </>
   )
 }

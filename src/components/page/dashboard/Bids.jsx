@@ -14,7 +14,11 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { Table } from "@table-library/react-table-library/table";
 import Counter from "../../common/Counter";
 import moment from "moment";
-import { MagnifyingGlass ,FallingLines,MutatingDots} from 'react-loader-spinner'
+import {
+  MagnifyingGlass,
+  FallingLines,
+  MutatingDots,
+} from "react-loader-spinner";
 
 function Bids() {
   const { id } = useParams();
@@ -42,21 +46,26 @@ function Bids() {
 
   const acceptBid = async (bidderId, soldPrice) => {
     try {
+     
+
+
       const res = await axios.post(
         "http://localhost:3500/seller/acceptBid",
         {
           ID: bidderId,
           ProductID: id,
-          SoldPrice: soldPrice,
+          AcceptedBidPrice: soldPrice,
         },
 
         {
           withCredentials: true,
         }
-      );
-      getproductInfo()
+      )
 
-      Swal.fire("Bid Accepted Sucessfully", "You have sold the item", "success");
+
+   Swal.fire("Bid Accepted", "Bid has been accepted", "success");
+   getproductInfo();
+     
     } catch (e) {
       Swal.fire(e.code, "Please try again", "error");
     }
@@ -82,86 +91,74 @@ function Bids() {
         </div>
 
         <div className="table-wrapper">
-         
-              {productInfo == null || productInfo.Bids.length==0
-                ? 
-                
-                <div className="text-xl h-[300px] flex flex-col items-center justify-center  text-green-700 text-center">
-<MutatingDots 
-  height="100"
-  width="100"
-  color="#4fa94d"
-  secondaryColor= '#4fa94d'
-  radius='12.5'
-  ariaLabel="mutating-dots-loading"
-  wrapperStyle={{}}
-  wrapperClass=""
-  visible={true}
- /> 
-<div className="flex mt-2">
+          {productInfo == null || productInfo.Bids.length == 0 ? (
+            <div className="text-xl h-[300px] flex flex-col items-center justify-center  text-green-700 text-center">
+              <MutatingDots
+                height="100"
+                width="100"
+                color="#4fa94d"
+                secondaryColor="#4fa94d"
+                radius="12.5"
+                ariaLabel="mutating-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+              <div className="flex mt-2">No bids currently found</div>
+            </div>
+          ) : (
+            <table className="eg-table order-table table mb-0">
+              <thead>
+                <tr>
+                  <th>-</th>
+                  <th>Bidder</th>
 
-                No bids currently found  
-</div>
-                
-                
-                </div>
+                  <th>Bid Amount(USD)</th>
 
-                : 
-                <table className="eg-table order-table table mb-0">
-                <thead>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Accept</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productInfo?.Bids.map((bid, index) => (
                   <tr>
-                    <th>-</th>
-                    <th>Bidder</th>
-    
-                    <th>Bid Amount(USD)</th>
-    
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Accept</th>
-                  </tr>
-                </thead>
-                <tbody>
-               { productInfo?.Bids.map((bid, index) => (
-                    <tr>
-                      <td data-label="Image">
-                        <img
-                          alt="images"
-                          src={bid.Bidder.ProfilePicture}
-                          className="img-fluid"
-                        />
-                      </td>
+                    <td data-label="Image">
+                      <img
+                        alt="images"
+                        src={bid.Bidder.ProfilePicture}
+                        className="img-fluid"
+                      />
+                    </td>
 
-                      <td data-label="Title">{bid.Bidder.Name}</td>
+                    <td data-label="Title">{bid.Bidder.Name}</td>
 
-                      <td data-label="Bid Amount(USD)">{bid.Amount}$</td>
-                      <td data-label="Status" className="text-green">
-                        {" "}
-                        {productInfo.IsSold ? "Sold" : "Pending"}{" "}
-                      </td>
-                      <td data-label="date">
-                        {moment(` ${bid.Date}`).format("MMM Do YYYY, h:mm a")}
-                      </td>
+                    <td data-label="Bid Amount(USD)">{bid.Amount}$</td>
+                    <td data-label="Status" className="text-green">
+                      {" "}
+                      {productInfo.BidAccepted ? "Bid Accepted" : "Pending"}{" "}
+                    </td>
+                    <td data-label="date">
+                      {moment(` ${bid.Date}`).format("MMM Do YYYY, h:mm a")}
+                    </td>
 
-                      <td data-label="Action">
-                       { productInfo.IsSold?"-": <button
+                    <td data-label="Action">
+                      {productInfo.BidAccepted ? (
+                        "-"
+                      ) : (
+                        <button
                           onClick={() => acceptBid(bid.Bidder._id, bid.Amount)}
-                          className="eg-btn action-btn green"
+                          className="eg-btn action-btn green p-3 text-white hover:bg-black"
                         >
-                          <img
-                            alt="perchesImage"
-                            src={
-                              process.env.PUBLIC_URL +
-                              "/images/icons/aiction-icon.svg"
-                            }
-                          />
-                        </button>}
-                      </td>
-                    </tr>
-                    ))}
-                    </tbody>
-          </table>
-                  }
-           
+                          Accept
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
 
         <div className="table-pagination">
