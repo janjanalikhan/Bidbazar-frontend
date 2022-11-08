@@ -186,8 +186,8 @@ function PaymentsToBeMade() {
         {/* pagination area */}
         <div className="table-pagination">
           <p>
-            Total Products:{" "}
-            {buyerInfo?.data ? buyerInfo.data.BoughtProducts.length : ""}{" "}
+            Total Payments made till now:{" "}
+            {buyerInfo?.data ? buyerInfo.data.ProductsPaymentsToClear.length : ""}{" "}
           </p>
 
           {/* <nav className="pagination-wrap">
