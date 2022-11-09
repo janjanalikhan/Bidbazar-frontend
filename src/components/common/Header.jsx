@@ -140,7 +140,7 @@ function Header() {
           <ul className="menu-list">
 
 
-          <li
+        { auth?.Role? <li
               //className="menu-item-has-children"
               onClick={() => dispatch({ type: "homeOne" })}
             >
@@ -153,7 +153,7 @@ function Header() {
                 Dashboard
               </Link>
             
-            </li>
+            </li>:""}
 
 
             {auth.Role=="Buyer"?

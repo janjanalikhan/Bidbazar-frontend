@@ -168,7 +168,7 @@ function LiveAuctionWrap() {
                 
                 
           </div>
-          <Pagination />
+     
         </div>
       </div>
     </>
