@@ -22,7 +22,7 @@ function Header() {
 			}
 		);
 
-    window.location.href = "https://637136482a37147a0bfb474b--ubiquitous-trifle-03a1d4.netlify.app/";
+    window.location.href = `https://${window.location.hostname}`;
 		//window.location.reload(false);
 	}
 
