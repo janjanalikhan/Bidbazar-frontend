@@ -15,10 +15,10 @@ function HomePageOne() {
     <Catagory/>
     <LiveAuctionHome1/>
     {/* <UpCommingHome1/> */}
-    <TestimonialHome1/>
-    <SponsorHome1/>
+    {/* <TestimonialHome1/>
+    <SponsorHome1/> */}
     {/* <RecentNewsHome1/> */}
-    <AboutUsCounter/>
+    {/* <AboutUsCounter/> */}
     </>
   )
 }

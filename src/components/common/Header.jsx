@@ -22,8 +22,8 @@ function Header() {
 			}
 		);
 
-    window.location.href = `https://${window.location.hostname}`;
-		//window.location.reload(false);
+    // window.location.href = `https://${window.location.hostname}`;
+		window.location.reload(false);
 	}
 
 
@@ -388,7 +388,7 @@ function Header() {
           
           <div className="eg-btn btn--primary header-btn">
           <Link to={`${process.env.PUBLIC_URL}/login`} onClick={scrollTop}>
-             {auth.Name}Login In
+             {auth.Name}Login
            </Link> 
          </div>
           

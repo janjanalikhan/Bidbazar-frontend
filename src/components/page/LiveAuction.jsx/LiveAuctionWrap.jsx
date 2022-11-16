@@ -95,17 +95,29 @@ function LiveAuctionWrap() {
                             </h4>
                           </div>
                         </div>
+                        <Link
+                            to={`${process.env.PUBLIC_URL}/buyer/profile/${product.ProductOwner._id}`}
+                            onClick={() =>
+                              window.scrollTo({ top: 0, behavior: "smooth" })
+                            }
+                           
+                          >
                         <div className="author-area">
                           <div className="author-emo">
                             <img
                               alt="images"
-                              src={product.ProductOwner.ProfilePicture}
+                              src={
+                             product.ProductOwner.ProfilePicture
+                              }
                             />
                           </div>
+
                           <div className="author-name">
                             <span>Owner @{product.ProductOwner.Name}</span>
                           </div>
                         </div>
+
+                        </Link>
                       </div>
                       <div className="auction-content">
                         <h4>
