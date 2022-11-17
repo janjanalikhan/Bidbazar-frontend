@@ -61,6 +61,8 @@ const Root = () => {
         </Route>
 
         <Route element={<LoginAuth />}>
+
+          
           <Route exact path={`/about`} element={<Layout page={About} />} />
           <Route exact path={`/contact`} element={<Layout page={Contact} />} />
 
@@ -84,8 +86,10 @@ const Root = () => {
             element={<Layout page={Dashboard} />}
           />
 
-          
-<Route path="seller/profile/:id" element={<Layout page={ProfilePage} />} />
+          <Route
+            path="seller/profile/:id"
+            element={<Layout page={ProfilePage} />}
+          />
 
           <Route
             exact
@@ -114,10 +118,10 @@ const Root = () => {
         </Route>
 
         <Route element={<RequireAuth role="Buyer" />}>
-
-          
-<Route path="buyer/profile/:id" element={<Layout page={ProfilePage} />} />
-
+          <Route
+            path="buyer/profile/:id"
+            element={<Layout page={ProfilePage} />}
+          />
 
           <Route
             exact
