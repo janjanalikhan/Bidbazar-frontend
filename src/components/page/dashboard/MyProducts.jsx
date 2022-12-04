@@ -98,6 +98,7 @@ function MyProducts() {
         aria-labelledby="v-pills-myproducts-tab"
       >
         
+
         {/* table title*/}
         <div className="table-title-area">
           <h3>Products List</h3>
@@ -137,14 +138,16 @@ function MyProducts() {
                           className="img-fluid"
                         />
                       </td>
+
                       <td data-label="Bidding ID">{i.Category}</td>
                       <td data-label="Bid Amount(USD)">{i.InitialPrice}$</td>
-                      <td data-label="Highest Bid">N/A</td>
+                      <td data-label="Highest Bid">{i.MaxBid}</td>
 
                       <td data-label="Bid Amount(USD)">{i.MaxAllowedBid}$</td>
                       <td data-label="Status" className="text-green">
                         {i.IsSold ? "Sold" : "Not Sold"}
                       </td>
+
                       <td data-label="Bid Amount(USD)">
                         {moment(` ${i.BidClosingDate}`).format(
                           "MMM Do YYYY, h:mm a"

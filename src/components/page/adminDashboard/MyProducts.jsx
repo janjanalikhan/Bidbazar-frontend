@@ -101,12 +101,7 @@ function MyProducts() {
         {/* table title*/}
         <div className="table-title-area">
           <h3>Products List</h3>
-          {/* <Select
-            placeholder="filer order"
-            valueContainer="select"
-            options={orderListOptions}
-            styles={customStyle}
-          /> */}
+
         </div>
         {/* table */}
         <div className="table-wrapper">
@@ -165,9 +160,6 @@ function MyProducts() {
                           </>
                           : "Time Over"}
 
-               
-
-                                
                       </td>
 
                       <td data-label="See Bids">
@@ -206,35 +198,6 @@ function MyProducts() {
             {sellerInfo?.data ? sellerInfo.data.Products.length : ""}{" "}
           </p>
 
-          {/* <nav className="pagination-wrap">
-            <ul className="pagination style-two d-flex justify-content-center gap-md-3 gap-2">
-              <li className="page-item">
-                <Link className="page-link" to={"#"} tabIndex={-1}>
-                  Prev
-                </Link>
-              </li>
-              <li className="page-item active" aria-current="page">
-                <Link className="page-link" to={"#"}>
-                  01
-                </Link>
-              </li>
-              <li className="page-item">
-                <Link className="page-link" to={"#"}>
-                  02
-                </Link>
-              </li>
-              <li className="page-item">
-                <Link className="page-link" to={"#"}>
-                  03
-                </Link>
-              </li>
-              <li className="page-item">
-                <Link className="page-link" to={"#"}>
-                  Next
-                </Link>
-              </li>
-            </ul>
-          </nav> */}
         </div>
       </div>
     </>

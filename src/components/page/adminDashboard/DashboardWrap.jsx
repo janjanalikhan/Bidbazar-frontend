@@ -4,6 +4,8 @@ import AddProducts from "./AddProducts";
 import ContentOfOrder from "./ContentOfOrder";
 import ContentOfProfile from "./ContentOfProfile";
 import ToBeShipped from "./ToBeShipped";
+import Shipped from "./Shipped"
+import Users from "./Users"
 import DeshbordMenu from "./DashboardMenu";
 import MyProducts from "./MyProducts";
 
@@ -27,6 +29,8 @@ function DashbordWrap() {
             <DeshbordMenu />
             <div className="col-lg-9">
               <div className="tab-content" id="v-pills-tabContent">
+
+
                 {/* <ContentOfDashboardTab /> */}
                 {/* <AddProducts />
                 <MyProducts/>
@@ -35,7 +39,11 @@ function DashbordWrap() {
 
                 {/* <ContentOfProfile />
                 <ContentOfOrder /> */}
+
+
                 <ToBeShipped />
+                <Shipped />
+                <Users/>
               </div>
             </div>
           </div>

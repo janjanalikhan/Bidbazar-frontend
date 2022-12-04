@@ -44,7 +44,6 @@ function ToBeShipped() {
       Swal.fire(e.code, "Please try again", "error");
     }
 
-    
     // reload();
   };
 
@@ -116,14 +115,14 @@ function ToBeShipped() {
     <>
       <div
         className="tab-pane fade"
-        id="v-pills-tobeshipped"
+        id="v-pills-shipped"
         role="tabpanel"
-        aria-labelledby="v-pills-tobeshipped-tab"
+        aria-labelledby="v-pills-shipped-tab"
       >
         
         {/* table title*/}
         <div className="table-title-area">
-          <h3>To Be Shipped Products</h3>
+          <h3>Shipped Products</h3>
           {/* <Select
             placeholder="filer order"
             valueContainer="select"
@@ -136,23 +135,22 @@ function ToBeShipped() {
           <table className="eg-table order-table table mb-0">
             <thead>
               <tr>
+
                 <th>Image</th>
                 <th>Name</th>
                 <th>Category</th>
+       
                 <th>Buyer Name</th>
                 <th>Sold Price</th>
                 <th>Location</th>
             
              
-             
-        
-                <th>Mark Shipped</th>
          
               </tr>
             </thead>
             <tbody>
-              {sellerInfo?.data.ToBeShipped
-                ? sellerInfo.data.ToBeShipped.map((i) => (
+              {sellerInfo?.data.Shipped
+                ? sellerInfo.data.Shipped.map((i) => (
                     <tr>
                       <td data-label="">
                         <img
@@ -163,24 +161,17 @@ function ToBeShipped() {
                       </td>
                       <td data-label="Product Name">{i.Name}</td>
                       <td data-label="Bidding Category">{i.Category}</td>
-                      <td data-label="Buyer Name">{i.ProductOwner.Name}</td>
+                
+                      <td data-label="Buyer Name">{i?.Buyer?.Name}</td>
                       <td data-label="Bid Amount(USD)">{i.SoldPrice}$</td>
       
                       <td data-label="Location">{i.Location}</td>
     
 
                  
-                      <td data-label="Action">
-                     
-                     <button
-                       onClick={() => shipped( i._id )}
-                       className="eg-btn action-btn green p-3 text-white hover:bg-black"
-                     >
-                       Shipped
-                     </button>
-                 
-                 </td>
 
+
+               
                     
                     </tr>
                   ))
@@ -192,7 +183,7 @@ function ToBeShipped() {
         <div className="table-pagination">
           <p>
             Total Products:{" "}
-            {sellerInfo?.data ? sellerInfo.data.ToBeShipped.length : ""}{" "}
+            {sellerInfo?.data ? sellerInfo.data.Shipped.length : ""}{" "}
           </p>
 
           {/* <nav className="pagination-wrap">

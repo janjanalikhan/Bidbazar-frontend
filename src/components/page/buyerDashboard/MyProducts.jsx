@@ -94,7 +94,10 @@ function MyProducts() {
             <thead>
               <tr>
                 <th>Image</th>
+                <th>Name</th>
                 <th>Category</th>
+            
+        
                 <th>Initial Bid(USD)</th>
           
                 <th>Bought Price</th>
@@ -118,6 +121,7 @@ function MyProducts() {
                           className="img-fluid"
                         />
                       </td>
+                      <td data-label="Name">{i.Name}</td>
                       <td data-label="Bidding ID">{i.Category}</td>
                       <td data-label="Bid Amount(USD)">${i.InitialPrice}</td>
                   
