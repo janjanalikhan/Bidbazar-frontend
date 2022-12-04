@@ -14,6 +14,11 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { Table } from "@table-library/react-table-library/table";
 import moment from "moment";
+import {
+  MagnifyingGlass,
+  FallingLines,
+  MutatingDots,
+} from "react-loader-spinner";
 axios.defaults.withCredentials = true;
 
 function LiveAuctionWrap() {
@@ -53,7 +58,21 @@ function LiveAuctionWrap() {
         <div className="container">
           <div className="row gy-4 mb-60 d-flex justify-content-center">
             {allProducts == null
-              ? ""
+              ? 
+              <div className="text-xl h-[300px] flex flex-col items-center justify-center  text-green-700 text-center">
+              <MutatingDots
+                height="100"
+                width="100"
+                color="#4fa94d"
+                secondaryColor="#4fa94d"
+                radius="12.5"
+                ariaLabel="mutating-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+              <div className="flex mt-2">Loading....</div>
+            </div>
               : allProducts.data.map((product, index) => (
                 product.IsSold?"":
                   <div key={index} className="col-lg-4 col-md-6 col-sm-10">
@@ -180,7 +199,7 @@ function LiveAuctionWrap() {
                 
                 
           </div>
-          <Pagination />
+         
         </div>
       </div>
     </>

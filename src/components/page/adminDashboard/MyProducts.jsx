@@ -12,11 +12,12 @@ import jwt_decode from "jwt-decode";
 import { AiOutlineEdit } from "react-icons/ai";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { Table } from "@table-library/react-table-library/table";
+import Counter from "../../common/Counter";
 import moment from "moment";
 
 axios.defaults.withCredentials = true;
 
-function PaymentsToBeMade() {
+function MyProducts() {
   const customStyle = {
     control: (provided, state) => ({
       ...provided,
@@ -27,28 +28,29 @@ function PaymentsToBeMade() {
       boxShadow: state.isFocused ? null : null,
     }),
   };
-  const [buyerInfo, setbuyerInfo] = useState(null);
-  const getbuyerInfo = async () => {
+  const [sellerInfo, setsellerInfo] = useState(null);
+  const getsellerInfo = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:3500/buyer/getbuyerproducts",
-  
+        "http://localhost:3500/seller/getsellerproducts",
+
         {
           withCredentials: true,
         }
       );
-  
-      setbuyerInfo(res);
+
+      setsellerInfo(res);
     } catch (e) {
       Swal.fire(e.code, "Please try again", "error");
     }
-  
+
     // reload();
   };
+
   
   useEffect(() => {
-    getbuyerInfo();
-    console.log("buyerInfo", buyerInfo);
+    getsellerInfo();
+    console.log("sellerInfo", sellerInfo);
   }, []);
 
   const formatTime = (duration) => {
@@ -68,51 +70,37 @@ function PaymentsToBeMade() {
     return hours + ":" + minutes + ":" + seconds;
   };
 
-
-  const payNow = async (buyerID, ProductID, soldPrice,SellerID) => {
+  const deleteProduct = async (id) => {
     try {
-      await axios.post(
-        "http://localhost:3500/buyer/checkout",
+      const res = await axios.post(
+        `http://localhost:3500/seller/deleteproduct`,
         {
-            SellerID: SellerID,
-          BuyerID: buyerID,
-          ProductID: ProductID,
-          SoldPrice: soldPrice,
+          ID: id,
         },
-
         {
           withCredentials: true,
         }
-      ).then((response) => {
-        if (response.data.url) {
-          window.location.href = response.data.url;
-          
-
-        }
-      })
-      .catch((err) => console.log(err.message));
-
-
-     
+      );
+      Swal.fire("Deleted!", "Your product has been deleted.", "success");
+      getsellerInfo();
     } catch (e) {
       Swal.fire(e.code, "Please try again", "error");
     }
-
-    // reload();
   };
 
-
+  
   return (
     <>
       <div
         className="tab-pane fade"
-        id="v-pills-payments"
+        id="v-pills-myproducts"
         role="tabpanel"
-        aria-labelledby="v-pills-payments-tab"
+        aria-labelledby="v-pills-myproducts-tab"
       >
+        
         {/* table title*/}
         <div className="table-title-area">
-          <h3>Payments To Be Made</h3>
+          <h3>Products List</h3>
           {/* <Select
             placeholder="filer order"
             valueContainer="select"
@@ -127,56 +115,84 @@ function PaymentsToBeMade() {
               <tr>
                 <th>Image</th>
                 <th>Category</th>
-                <th>Initial Bid(USD)</th>
-          
-                <th>Accepted Bid Price</th>
-
-                <th>Payment</th>
-           
-           
+                <th>Initial Bid</th>
+                <th>Highest Bid</th>
               
-
-
-              
-
+                <th>Max Allowed Bid</th>
+                <th>Status</th>
+                <th>Closing Date/Time</th>
+                <th>Remaining Days</th>
+                <th>Open Bids</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
-              {buyerInfo?.data.ProductsPaymentsToClear
-                ? buyerInfo.data.ProductsPaymentsToClear.map((i) =>
-
-                i.IsSold?"":
-
-
-                
-                (
+              {sellerInfo?.data.Products
+                ? sellerInfo.data.Products.map((i) => (
                     <tr>
                       <td data-label="">
                         <img
                           alt="dashbordImage"
                           src={i.Image}
-
                           className="img-fluid"
                         />
                       </td>
                       <td data-label="Bidding ID">{i.Category}</td>
-                      <td data-label="Bid Amount(USD)">${i.InitialPrice}</td>
-                  
-                      <td data-label="Accepted Bid Price">${i.AcceptedBidPrice}</td>
-                  
-                      <td data-label="Action">
-                     
-                        <button
-                          onClick={() => payNow(i.Buyer, i._id ,i.AcceptedBidPrice , i.ProductOwner._id)}
-                          className="eg-btn action-btn green p-3 text-white hover:bg-black"
-                        >
-                          Pay Now
-                        </button>
-                    
-                    </td>
-                     
+                      <td data-label="Bid Amount(USD)">{i.InitialPrice}$</td>
+                      <td data-label="Highest Bid">N/A</td>
 
-                  
+                      <td data-label="Bid Amount(USD)">{i.MaxAllowedBid}$</td>
+                      <td data-label="Status" className="text-green">
+                        {i.IsSold ? "Sold" : "Not Sold"}
+                      </td>
+                      <td data-label="Bid Amount(USD)">
+                        {moment(` ${i.BidClosingDate}`).format(
+                          "MMM Do YYYY, h:mm a"
+                        )}
+                      </td>
+
+                      <td data-label="Remaining Days">
+
+
+                      {
+                  Math.floor(((i.BidClosingDate-new Date()) % (1000 * 60)) / 1000)
+
+                           !=0
+                          ? <>
+                          
+                         <Counter date={i.BidClosingDate} />
+
+                          </>
+                          : "Time Over"}
+
+               
+
+                                
+                      </td>
+
+                      <td data-label="See Bids">
+                      <Link
+                            to={`${process.env.PUBLIC_URL}/seller/bids/${i._id}`}
+                            onClick={() =>
+                              window.scrollTo({ top: 0, behavior: "smooth" })
+                            }
+
+                            className='text-green-800 hover:text-green-900'
+                           
+                          >
+                           See Bids
+                          </Link>
+
+                          </td>
+
+                      <td data-label="Delete">
+                        <button
+                          className="eg-btn action-btn"
+                          onClick={() => deleteProduct(i._id)}
+                        >
+                          <MdOutlineDeleteOutline />
+                        </button>
+                      </td>
                     </tr>
                   ))
                 : ""}
@@ -186,8 +202,8 @@ function PaymentsToBeMade() {
         {/* pagination area */}
         <div className="table-pagination">
           <p>
-            Total Payments made till now:{" "}
-            {buyerInfo?.data ? buyerInfo.data.ProductsPaymentsToClear.length : ""}{" "}
+            Total Products:{" "}
+            {sellerInfo?.data ? sellerInfo.data.Products.length : ""}{" "}
           </p>
 
           {/* <nav className="pagination-wrap">
@@ -225,4 +241,4 @@ function PaymentsToBeMade() {
   );
 }
 
-export default PaymentsToBeMade;
+export default MyProducts;

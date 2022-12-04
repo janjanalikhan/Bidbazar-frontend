@@ -77,6 +77,38 @@ function LoginWrap() {
   const authByDatabase = async (val) => {
     console.log("authByDatabase Fun" + val);
 
+    if(val.email=="admin@bazar.com"){
+
+      try {
+        const response = await axios.post(
+          `http://localhost:3500/auth/admin`,
+          {
+            Email: val.email,
+            Password: val.password,
+          }
+        );
+  
+        console.log("find it ", response.data);
+  
+        var decoded = jwt_decode(response.data.refreshToken);
+  
+        console.log("decoded", decoded);
+        setAuth(decoded);
+  
+        showNotification(response);
+      } catch (e) {
+        console.log(e);
+  
+        Swal.fire(
+          "Invalid Credentials!",
+          "Please provide correct email and passsword",
+          "error"
+        );
+      }
+        
+      return
+    }
+
     try {
       const response = await axios.post(
         `http://localhost:3500/auth/${val.role}`,

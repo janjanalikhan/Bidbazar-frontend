@@ -12,9 +12,13 @@ const LoginAuth = () => {
     auth.Role == "Seller" ? (
       <Navigate to="/seller/dashboard" replace />
     ) :
+    auth.Role == "Admin" ? (
+      <Navigate to="/admin/dashboard" replace />
+    ) :
     auth.Role == "Buyer" ? (
       <Navigate to="/buyer/live-auction" replace />
     ) :  (
+  
       <Navigate to="/login" state={{ from: location }} replace />
     )
   ) : (

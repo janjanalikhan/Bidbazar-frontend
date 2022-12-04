@@ -16,6 +16,7 @@ import AuctionDetails from "./components/page/auctionDetails/AuctionDetails";
 import Dashboard from "./components/page/dashboard/Dashboard";
 import Bids from "./components/page/dashboard/Bids";
 import buyerDashboard from "./components/page/buyerDashboard/Dashboard";
+import AdminDashboard from "./components/page/adminDashboard/Dashboard";
 
 import Blog from "./components/page/blog/Blog";
 import BlogDetails from "./components/page/BlogDetails/BlogDetails";
@@ -78,6 +79,19 @@ const Root = () => {
 
           <Route path="/profile/:id" element={<Layout page={ProfilePage} />} />
         </Route>
+
+
+
+        <Route element={<RequireAuth role="Admin" />}>
+          <Route
+            exact
+            path={`admin/dashboard`}
+            element={<Layout page={AdminDashboard} />}
+          />
+
+        </Route>
+
+
 
         <Route element={<RequireAuth role="Seller" />}>
           <Route

@@ -16,6 +16,8 @@ const RequireAuth = (props) => {
     <Navigate to="/seller/dashboard" replace />
   ) : auth.Role == "Buyer" ? (
     <Navigate to="/buyer/live-auction" replace />
+    ) : auth.Role == "Admin" ? (
+      <Navigate to="/admin/dashboard" replace />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
   );
