@@ -11,9 +11,6 @@ axios.defaults.withCredentials = true;
 function ContentOfDashboardTab() {
   const {auth , setAuth} = useAuth();
 
- 
-
-
 
 
   const [sellerInfo, setsellerInfo] = useState(null);
@@ -26,8 +23,34 @@ function ContentOfDashboardTab() {
           withCredentials: true,
         }
       );
-
       setsellerInfo(res);
+      if(res.data.NewBidPlaced == true){
+        Swal.fire({
+          title: 'New Bid has been placed',
+          width: 600,
+          padding: '3em',
+          color: '#716add',
+          background: '#fff url(/images/trees.png)',
+          backdrop: `
+            rgba(0,0,123,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+          `
+        })
+
+        const res = await axios.post(
+          "http://localhost:3500/seller/newBidSeen",
+  
+          {
+            withCredentials: true,
+          }
+        );
+
+      }
+
+
+      
     } catch (e) {
       Swal.fire(e.code, "Please try again", "error");
     }
