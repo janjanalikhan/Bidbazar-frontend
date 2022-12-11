@@ -44,13 +44,8 @@ function ToBeShipped() {
       Swal.fire(e.code, "Please try again", "error");
     }
 
-    
     // reload();
   };
-
-  
-
-
 
   useEffect(() => {
     getadminInfo();
@@ -108,19 +103,16 @@ function ToBeShipped() {
     } catch (e) {
       Swal.fire(e.code, "Please try again", "error");
     }
+  };
 
-  }
-
-  
   return (
     <>
       <div
-        className="tab-pane fade"
+        className="tab-pane fade show active"
         id="v-pills-tobeshipped"
         role="tabpanel"
         aria-labelledby="v-pills-tobeshipped-tab"
       >
-        
         {/* table title*/}
         <div className="table-title-area">
           <h3>To Be Shipped Products</h3>
@@ -142,12 +134,8 @@ function ToBeShipped() {
                 <th>Buyer Name</th>
                 <th>Sold Price</th>
                 <th>Location</th>
-            
-             
-             
-        
+
                 <th>Mark Shipped</th>
-         
               </tr>
             </thead>
             <tbody>
@@ -165,23 +153,17 @@ function ToBeShipped() {
                       <td data-label="Bidding Category">{i.Category}</td>
                       <td data-label="Buyer Name">{i.ProductOwner.Name}</td>
                       <td data-label="Bid Amount(USD)">{i.SoldPrice}$</td>
-      
+
                       <td data-label="Location">{i.Location}</td>
-    
 
-                 
                       <td data-label="Action">
-                     
-                     <button
-                       onClick={() => shipped( i._id )}
-                       className="eg-btn action-btn green p-3 text-white hover:bg-black"
-                     >
-                       Shipped
-                     </button>
-                 
-                 </td>
-
-                    
+                        <button
+                          onClick={() => shipped(i._id)}
+                          className="eg-btn action-btn green p-3 text-white hover:bg-black"
+                        >
+                          Shipped
+                        </button>
+                      </td>
                     </tr>
                   ))
                 : ""}

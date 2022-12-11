@@ -19,16 +19,20 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { Table } from "@table-library/react-table-library/table";
 import moment from "moment";
 import { Store } from "react-notifications-component";
+import {
+  MagnifyingGlass,
+  FallingLines,
+  MutatingDots,
+} from "react-loader-spinner";
 axios.defaults.withCredentials = true;
 
-function AuctionDetailsWrap({socket}) {
- 
-
+function AuctionDetailsWrap({ socket }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const { auth, setAuth } = useAuth();
   const [allProducts, setallProducts] = useState(null);
   const [productInfo, setproductInfo] = useState(null);
+  const [maxBid, setmaxBid] = useState(null);
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const getproductInfo = async () => {
@@ -43,7 +47,9 @@ function AuctionDetailsWrap({socket}) {
           withCredentials: true,
         }
       );
+      console.log("Bids res", res.data);
       setproductInfo(res.data);
+      setmaxBid(res.data.MaxBid);
     } catch (e) {
       Swal.fire(e.code, "Please try again", "error");
     }
@@ -166,21 +172,41 @@ function AuctionDetailsWrap({socket}) {
     // eslint-disable-next-line no-unused-vars
     validate,
     onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2));
-      alert(JSON.stringify(values));
-      //console.log("getFileBase64String", getFileBase64String);
-
-      addToDatabase(values);
+      Swal.fire({
+        title: "Are you sure to bid?",
+        text: `${maxBid}` + "$ is the current highest bid",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Place bid",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          addToDatabase(values);
+        }
+      });
     },
   });
 
   const [index, setIndex] = useState(0);
 
-
   return (
     <>
       {productInfo == null ? (
-        "Do not exsist"
+        <div className="text-xl h-[300px] flex flex-col items-center justify-center  text-green-700 text-center">
+          <MutatingDots
+            height="100"
+            width="100"
+            color="#4fa94d"
+            secondaryColor="#4fa94d"
+            radius="12.5"
+            ariaLabel="mutating-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+          <div className="flex mt-2">Loading..</div>
+        </div>
       ) : (
         <div className="auction-details-section pt-120 pb-120">
           <img
@@ -306,8 +332,7 @@ function AuctionDetailsWrap({socket}) {
                           <div
                             className="eg-btn btn--primary btn--sm bg-black cursor-pointer"
                             onClick={() => {
-                              formik.handleSubmit()
-                            
+                              formik.handleSubmit();
                             }}
                             // type="submit"
                           >

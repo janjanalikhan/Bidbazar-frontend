@@ -30,8 +30,8 @@ function DashbordWrap() {
             <div className="col-lg-9">
               <div className="tab-content" id="v-pills-tabContent">
 
-
-                {/* <ContentOfDashboardTab /> */}
+{/* 
+                <ContentOfDashboardTab /> */}
                 {/* <AddProducts />
                 <MyProducts/>
                */}

@@ -46,9 +46,6 @@ function Bids() {
 
   const acceptBid = async (bidderId, soldPrice) => {
     try {
-     
-
-
       const res = await axios.post(
         "http://localhost:3500/seller/acceptBid",
         {
@@ -60,12 +57,10 @@ function Bids() {
         {
           withCredentials: true,
         }
-      )
+      );
 
-
-   Swal.fire("Bid Accepted", "Bid has been accepted", "success");
-   getproductInfo();
-     
+      Swal.fire("Bid Accepted", "Bid has been accepted", "success");
+      getproductInfo();
     } catch (e) {
       Swal.fire(e.code, "Please try again", "error");
     }
@@ -77,11 +72,15 @@ function Bids() {
     getproductInfo();
     console.log("productInfo", productInfo);
   }, []);
+
+  const [accending, setaccending] = useState(true);
   return (
     <>
       <div className="m-[100px]">
         <div className="table-title-area">
-          <h3>All Bids </h3>
+          <div className="flex">
+            <h3>All Bids </h3>
+          </div>
           {/* <select id="order-category">
             <option value={"01"}>Show: Last 05 Order</option>
             <option value={"02"}>Show: Last 03 Order</option>
@@ -110,18 +109,35 @@ function Bids() {
             <table className="eg-table order-table table mb-0">
               <thead>
                 <tr>
-                  <th>-</th>
+                  <th>
+                    {" "}
+                    <div
+                      className="rounded-md bg-[#32c36c] hover:bg-black text-white cursor-pointer "
+                      onClick={() => {
+                        setaccending(!accending);
+                      }}
+                    >
+                      Sort
+                    </div>
+                  </th>
+
                   <th>Bidder</th>
-
                   <th>Bid Amount(USD)</th>
-
                   <th>Status</th>
                   <th>Date</th>
                   <th>Accept</th>
                 </tr>
               </thead>
               <tbody>
-                {productInfo?.Bids.map((bid, index) => (
+                {productInfo?.Bids.sort((a, b) =>
+                  accending
+                    ? a.Amount > b.Amount
+                      ? 1
+                      : -1
+                    : a.Amount < b.Amount
+                    ? 1
+                    : -1
+                ).map((bid, index) => (
                   <tr>
                     <td data-label="Image">
                       <img
@@ -136,7 +152,9 @@ function Bids() {
                     <td data-label="Bid Amount(USD)">{bid.Amount}$</td>
                     <td data-label="Status" className="text-green">
                       {" "}
-                      {productInfo.BidAccepted ? "Bid Accepted" : "Pending"}{" "}
+                      {productInfo.BidAccepted
+                        ? "Bid Accepted"
+                        : "Pending"}{" "}
                     </td>
                     <td data-label="date">
                       {moment(` ${bid.Date}`).format("MMM Do YYYY, h:mm a")}
