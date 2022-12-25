@@ -67,6 +67,10 @@ function LiveAuctionHome1() {
           {allProducts == null
               ? ""
               : allProducts.data.map((product, index) => (
+
+                product.ProductOwner==null ?"":
+
+
                   <div key={index} className="col-lg-4 col-md-6 col-sm-10">
                     <div
                       data-wow-duration="1.5s"
@@ -188,7 +192,10 @@ function LiveAuctionHome1() {
                       </div>
                     </div>
                   </div>
-                ))}
+                )
+                
+                
+                )}
                 
   
           </div>
