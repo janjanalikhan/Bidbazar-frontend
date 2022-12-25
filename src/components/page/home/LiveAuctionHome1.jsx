@@ -108,7 +108,7 @@ function LiveAuctionHome1() {
                         </div>
 
                         <Link
-                            to={`${process.env.PUBLIC_URL}/profile/${product.ProductOwner._id}`}
+                            to={`${process.env.PUBLIC_URL}/profile/${product?.ProductOwner?._id}`}
                             onClick={() =>
                               window.scrollTo({ top: 0, behavior: "smooth" })
                             }
@@ -119,13 +119,13 @@ function LiveAuctionHome1() {
                             <img
                               alt="images"
                               src={
-                             product.ProductOwner.ProfilePicture
+                             product?.ProductOwner?.ProfilePicture
                               }
                             />
                           </div>
 
                           <div className="author-name">
-                            <span>Owner @{product.ProductOwner.Name}</span>
+                            <span>Owner @{product?.ProductOwner?.Name}</span>
                           </div>
                         </div>
 
@@ -134,20 +134,20 @@ function LiveAuctionHome1() {
                       <div className="auction-content">
                         <h4>
                           <Link
-                            to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product._id}`}
+                            to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product?._id}`}
                             onClick={() =>
                               window.scrollTo({ top: 0, behavior: "smooth" })
                             }
                           >
-                            {product.Name}
+                            {product?.Name}
                           </Link>
                         </h4>
                         <p>
-                          Bidding Price : <span>${product.InitialPrice}</span>
+                          Bidding Price : <span>${product?.InitialPrice}</span>
                         </p>
                         <div className="auction-card-bttm">
                           <Link
-                            to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product._id}`}
+                            to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product?._id}`}
                             onClick={() =>
                               window.scrollTo({ top: 0, behavior: "smooth" })
                             }
