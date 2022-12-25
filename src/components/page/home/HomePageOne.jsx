@@ -12,8 +12,8 @@ function HomePageOne() {
   return (
     <>
     <HeroBanner/>
-    <Catagory/>
-    <LiveAuctionHome1/>
+    {/* <Catagory/> */}
+    <LiveAuctionHome1 />
     {/* <UpCommingHome1/> */}
     {/* <TestimonialHome1/>
     <SponsorHome1/> */}

@@ -17,9 +17,7 @@ import { Table } from "@table-library/react-table-library/table";
 import moment from "moment";
 axios.defaults.withCredentials = true;
 
-
 function LiveAuctionHome1() {
-
   const [allProducts, setallProducts] = useState(null);
 
   const getAllProducts = async () => {
@@ -39,7 +37,6 @@ function LiveAuctionHome1() {
     // reload();
   };
 
-  
   useEffect(() => {
     getAllProducts();
   }, []);
@@ -48,156 +45,164 @@ function LiveAuctionHome1() {
 
   return (
     <>
-     <div className="live-auction pb-120">
-        <img alt="images" src={process.env.PUBLIC_URL + "/images/bg/section-bg.png"} className="img-fluid section-bg" />
+      <div className="live-auction pb-120 mt-[150px]">
+        <img
+          alt="images"
+          src={process.env.PUBLIC_URL + "/images/bg/section-bg.png"}
+          className="img-fluid section-bg"
+        />
         <div className="container position-relative">
-          <img alt="images" src={process.env.PUBLIC_URL + "/images/bg/dotted1.png"} className="dotted1" />
-          <img alt="images" src={process.env.PUBLIC_URL + "/images/bg/dotted1.png"} className="dotted2" />
+          <img
+            alt="images"
+            src={process.env.PUBLIC_URL + "/images/bg/dotted1.png"}
+            className="dotted1"
+          />
+          <img
+            alt="images"
+            src={process.env.PUBLIC_URL + "/images/bg/dotted1.png"}
+            className="dotted2"
+          />
           <div className="row d-flex justify-content-center">
             <div className="col-sm-12 col-md-10 col-lg-8 col-xl-6">
               <div className="section-title1">
                 <h2>Live Auction</h2>
-                <p className="mb-0">Explore on the world's best &amp; largest Bidding marketplace with our beautiful Bidding
-                  products. We want to be a part of your smile, success and future growth.</p>
+                <p className="mb-0">
+                  Explore on the world's best &amp; largest Bidding marketplace
+                  with our beautiful Bidding products. We want to be a part of
+                  your smile, success and future growth.
+                </p>
               </div>
             </div>
           </div>
           <div className="row gy-4 d-flex justify-content-center">
-
-          {allProducts == null
+            {allProducts == null
               ? ""
-              : allProducts.data.map((product, index) => (
-
-                product.ProductOwner==null ?"":
-
-
-                  <div key={index} className="col-lg-4 col-md-6 col-sm-10">
-                    <div
-                      data-wow-duration="1.5s"
-                      data-wow-delay="0.2s"
-                      className="eg-card auction-card1 wow fadeInDown"
-                    >
-                      <div className="auction-img">
-                        <img
-                          alt="images"
-                          src={product.Image}
-                          className='h-[250px] object-cover'
-                        />
-                        <div className="auction-timer">
-                          <div className="countdown" id="timer1">
-                            <div className="hidden hover:display">
-                          {  moment
-                          .duration(
-                            moment(product.BidClosingDate).diff(moment())
-                          )
-                          .days() + 1} Days
+              : allProducts.data.map((product, index) =>
+                  product.ProductOwner == null ? (
+                    ""
+                  ) : (
+                    <div key={index} className="col-lg-4 col-md-6 col-sm-10">
+                      <div
+                        data-wow-duration="1.5s"
+                        data-wow-delay="0.2s"
+                        className="eg-card auction-card1 wow fadeInDown"
+                      >
+                        <div className="auction-img">
+                          <img
+                            alt="images"
+                            src={product.Image}
+                            className="h-[250px] object-cover"
+                          />
+                          <div className="auction-timer">
+                            <div className="countdown" id="timer1">
+                              <div className="hidden hover:display">
+                                {moment
+                                  .duration(
+                                    moment(product.BidClosingDate).diff(
+                                      moment()
+                                    )
+                                  )
+                                  .days() + 1}{" "}
+                                Days
+                              </div>
+                              <h4>
+                                {Math.floor(
+                                  ((product.BidClosingDate - new Date()) %
+                                    (1000 * 60)) /
+                                    1000
+                                ) != 0 ? (
+                                  <>
+                                    <Counter date={product.BidClosingDate} />
+                                  </>
+                                ) : (
+                                  "Time Over"
+                                )}
+                              </h4>
+                            </div>
                           </div>
-                            <h4>
 
-
-                            {
-                  Math.floor(((product.BidClosingDate-new Date()) % (1000 * 60)) / 1000)
-
-                           !=0
-                          ? <>
-                         
-                          
-                       <Counter date={product.BidClosingDate} />
-
-                          </>
-                          : "Time Over"}
-                              
-                            </h4>
-                          </div>
-                        </div>
-
-                        <Link
+                          <Link
                             to={`${process.env.PUBLIC_URL}/profile/${product?.ProductOwner?._id}`}
                             onClick={() =>
                               window.scrollTo({ top: 0, behavior: "smooth" })
                             }
-                           
                           >
-                        <div className="author-area">
-                          <div className="author-emo">
-                            <img
-                              alt="images"
-                              src={
-                             product?.ProductOwner?.ProfilePicture
-                              }
-                            />
-                          </div>
+                            <div className="author-area">
+                              <div className="author-emo">
+                                <img
+                                  alt="images"
+                                  src={product?.ProductOwner?.ProfilePicture}
+                                />
+                              </div>
 
-                          <div className="author-name">
-                            <span>Owner @{product?.ProductOwner?.Name}</span>
-                          </div>
+                              <div className="author-name">
+                                <span>
+                                  Owner @{product?.ProductOwner?.Name}
+                                </span>
+                              </div>
+                            </div>
+                          </Link>
                         </div>
-
-                        </Link>
-                      </div>
-                      <div className="auction-content">
-                        <h4>
-                          <Link
-                            to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product?._id}`}
-                            onClick={() =>
-                              window.scrollTo({ top: 0, behavior: "smooth" })
-                            }
-                          >
-                            {product?.Name}
-                          </Link>
-                        </h4>
-                        <p>
-                          Bidding Price : <span>${product?.InitialPrice}</span>
-                        </p>
-                        <div className="auction-card-bttm">
-                          <Link
-                            to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product?._id}`}
-                            onClick={() =>
-                              window.scrollTo({ top: 0, behavior: "smooth" })
-                            }
-                            className="eg-btn btn--primary btn--sm"
-                          >
-                            Place a Bid
-                          </Link>
-                          <div className="share-area">
-                            <ul className="social-icons d-flex">
-                              <li>
-                                <Link to={"#"}>
-                                  <i className="bx bxl-facebook" />
+                        <div className="auction-content">
+                          <h4>
+                            <Link
+                              to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product?._id}`}
+                              onClick={() =>
+                                window.scrollTo({ top: 0, behavior: "smooth" })
+                              }
+                            >
+                              {product?.Name}
+                            </Link>
+                          </h4>
+                          <p>
+                            Bidding Price :{" "}
+                            <span>${product?.InitialPrice}</span>
+                          </p>
+                          <div className="auction-card-bttm">
+                            <Link
+                              to={`${process.env.PUBLIC_URL}/buyer/auction-details/${product?._id}`}
+                              onClick={() =>
+                                window.scrollTo({ top: 0, behavior: "smooth" })
+                              }
+                              className="eg-btn btn--primary btn--sm"
+                            >
+                              Place a Bid
+                            </Link>
+                            <div className="share-area">
+                              <ul className="social-icons d-flex">
+                                <li>
+                                  <Link to={"#"}>
+                                    <i className="bx bxl-facebook" />
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link to={"#"}>
+                                    <i className="bx bxl-twitter" />
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link to={"#"}>
+                                    <i className="bx bxl-pinterest" />
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link to={"#"}>
+                                    <i className="bx bxl-instagram" />
+                                  </Link>
+                                </li>
+                              </ul>
+                              <div>
+                                <Link to={"#"} className="share-btn">
+                                  <i className="bx bxs-share-alt" />
                                 </Link>
-                              </li>
-                              <li>
-                                <Link to={"#"}>
-                                  <i className="bx bxl-twitter" />
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to={"#"}>
-                                  <i className="bx bxl-pinterest" />
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to={"#"}>
-                                  <i className="bx bxl-instagram" />
-                                </Link>
-                              </li>
-                            </ul>
-                            <div>
-                              <Link to={"#"} className="share-btn">
-                                <i className="bx bxs-share-alt" />
-                              </Link>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )
-                
-                
+                  )
                 )}
-                
-  
           </div>
           {/* <div className="row d-flex justify-content-center">
             <div className="col-md-4 text-center">
@@ -205,9 +210,9 @@ function LiveAuctionHome1() {
             </div>
           </div> */}
         </div>
-      </div>   
+      </div>
     </>
-  )
+  );
 }
 
-export default LiveAuctionHome1
+export default LiveAuctionHome1;
